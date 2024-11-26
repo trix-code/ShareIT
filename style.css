@@ -1,0 +1,1027 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+
+}
+body {
+    background: #ffffff;
+    
+}
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 90vh;
+}
+.container h1{
+    margin-top: 60px;
+}
+.box {
+    background: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
+                0 32px 64px -48px rgba(0,0,0,0.5);
+}
+.form-box {
+    width: 450px;
+    margin: 0px 10px;
+    margin-top: 50px;
+}
+.form-box header {
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 10px;
+    margin: auto;
+}
+.form-box form .field {
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+.form-box form .input input {
+    height: 40px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.btn {
+    display: inline-block;
+    width: 120px; /* Nastavíme pevnou šířku */
+    padding: 10px;
+    margin: 5px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.btn-info {
+    background-color: #00A9DE;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #008bb2;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+
+.btn-messege {
+    height: 35px;
+    background: #00A9DE;
+    border: 0;
+    width: 400px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all .3s;
+    padding: 0px 10px;
+}
+.btn-messege:hover {
+    opacity: 0.82;
+}
+.btn:hover {
+    opacity: 0.82;
+}
+.submit {
+    width: 100%;
+}
+.links {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+/********* Home *****************/
+
+nav {
+    padding: 40px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f8f8;
+    position: relative;
+    height: 70px;
+}
+
+.logo {
+    color: #000000;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.logo a {
+    color: black;
+    font-size: 40px;
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    font-size: 23px;
+}
+
+nav li a:hover {
+    opacity: 50%;
+    transition: 0.3s;
+}
+
+nav ul li {
+    list-style-type: none;
+}
+nav  li {
+    list-style-type: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+
+/* Hamburger menu */
+.menu-icon {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001; /* Vždy nad menu */
+}
+
+.menu-icon .bar {
+    width: 30px;
+    height: 4px;
+    background-color: black;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-icon.open .bar:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px); /* Precizní umístění */
+}
+
+/* Prostřední čára skryta */
+.menu-icon.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+/* Dolní čára při přeměně na křížek */
+.menu-icon.open .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px); /* Precizní umístění */
+}
+
+
+
+.notification-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.notification-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    display: none;
+}
+
+.notification-count.hidden {
+    display: none;
+}
+
+.notification-list {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item .actions button {
+    margin-left: 10px;
+}
+
+.notification-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Kulim Park', sans-serif;
+}
+
+.notification-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.notification-details {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.notification-actions button {
+    margin-left: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    color: white;
+}
+
+.notification-actions .accept {
+    background-color: #28a745;
+}
+
+.notification-actions .reject {
+    background-color: #dc3545;
+}
+
+
+
+
+/* Responzivita */
+@media (max-width: 1000px) {
+    nav ul {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        text-align: center;
+        background: #f8f8f8;
+        gap: 0;
+        overflow: hidden;
+        max-height: 0; /* Skryté menu */
+        transition: max-height 0.5s ease-out;
+    }
+
+    nav ul.show {
+        max-height: 300px; /* Zobrazené menu */
+    }
+
+    nav ul li {
+        padding: 15px;
+        border-top: 1px solid #ddd;
+    }
+
+    .menu-icon {
+        display: flex;
+    }
+}
+
+
+
+.message {
+    text-align: center;
+    background: #ffcfcf;
+    padding: 15px 0px;
+    border:1px solid #ffffff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.message-green {
+    text-align: center;
+    background: #c2ffae;
+    padding: 15px 0px;
+    border:1px solid #ffffff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0);
+}
+h1 {
+    align-items: center;
+    font-size: 5vw;
+    text-align: center;
+    margin-top: 100px;
+}
+b {
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+}
+a {
+    color: #00A9DE;
+}
+.bg img {
+    z-index: -999;
+    position: absolute;
+}
+.error {
+    color: red;
+    font-size: 0.9em;
+    display: none;
+}
+
+/********* Stylovani predplatne stranky *****************/
+
+.subscription-list {
+    margin-top: 20px;
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;     
+}
+.subscription-card-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.subscriptions-text h2{
+    font-size: 3em;
+    text-align: center;
+    margin-top: 20px;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+.subscription-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px auto;
+    text-align: center;
+    width: 270px;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+.subscription-card h4 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.subscription-card p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+.subscription-card button {
+    background-color: #00A9DE;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+.subscription-card button:hover {
+    background-color: #008bb2;
+}
+.add-subscription-button {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px auto;
+    width: 50%;
+    max-width: 300px;
+    font-size: 20px;
+}
+
+.add-subscription-button p{
+    font-size: 25px;
+}
+.plus-icon {
+    font-size: 5em;
+    color: #00A9DE;
+}
+.add-subscription-button:hover .plus-icon {
+    color: #008bb2;
+}
+/* Upravit barvu pozadí pro plusko */
+.add-subscription-button {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px auto;
+    width: 50%;
+    max-width: 300px;
+    font-size: 20px;
+}
+.hidden {
+    display: none;
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 1);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #00A9DE;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+/********* Stylovani prdplatneho formulare *****************/
+
+
+
+.subscription-form {
+    background: #f3f3f3;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 50%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.subscription-form h2 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #333;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+.subscription-form .field {
+    margin-bottom: 30px;
+    text-align: left;
+}
+.subscription-form .field input,
+.subscription-form .field select {
+    width: calc(100% - 10px);
+    padding: 10px;
+    font-size: 1.3em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 5px;
+    outline: none;
+}
+.subscription-form .field input:focus,
+.subscription-form .field select:focus {
+    border-color: #00A9DE;
+}
+.subscription-form .field label {
+    font-size: 0.9em;
+    color: #666;
+    display: block;
+}
+.subscription-form .btn {
+    background-color: #00A9DE;
+    color: white;
+    height: 75px;
+    border: none;
+    padding: 20px 20px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    margin-top: 10px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+.subscription-form .btn b {
+   font-size: 1.5em;
+   margin-bottom: 20px;
+}
+.subscription-form .btn:hover {
+    background-color: #008bb2;
+}
+.no-subscriptions p{
+    display: flex;
+    justify-content: center;
+    margin-top:230px;
+    font-size: 2.3em;
+}
+
+
+/********* USER *****************/
+
+.user-settings-container {
+    width: 60%;
+    margin: 0 auto;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.settings-flex {
+    width: 80%;
+    margin: auto;
+}
+
+
+.profile-section {
+    display: flex;
+    gap: 20px; 
+}
+
+.profile-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f9f9f9;
+    padding: 10px; /* Zmenšený padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px; 
+}
+
+.profile-box img {
+    width: 120px; 
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.change-profile-pic {
+    color: #007bff;
+    font-size: 18px; /* Menší text */
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#uploadForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#uploadForm input[type="file"] {
+    display: none;
+}
+
+.upload-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+.upload-button:active {
+    background-color: #003f8a;
+    transform: scale(0.95); /* Animace při kliknutí */
+}
+
+
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertikální zarovnání obsahu */
+    align-items: flex-start; /* Text zarovnán vlevo */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Šířka, která zabere zbytek prostoru */
+    min-height: 150px; /* Zajištění stejné výšky s profile-box */
+    text-align: left;
+}
+
+.info-box h2 {
+    font-size: 2em;
+    margin: auto;
+    margin-top: 10px;
+    align-items: center;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.info-box p {
+    font-size: 1em;
+    margin: auto;
+}
+
+/* Sekce uživatelských údajů */
+.user-details-section {
+    background-color: #eaeaea;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0;
+    gap: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    flex: 0 0 100px;
+    font-weight: bold;
+}
+
+.detail-container {
+    flex: 1;
+    max-width: 400px;
+}
+
+.detail-value {
+    display: block;
+    width: 100%;
+    background-color: #d9d9d9;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    font-weight: bold;
+}
+/* Styl tlačítka Upravit */
+.edit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.edit-btn i {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+
+/* Akční tlačítka */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+}
+
+.logout-btn,
+.delete-account-btn {
+    flex: 1;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.logout-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.delete-account-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.logout-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-account-btn:hover {
+    background-color: #c0392b;
+}
+
+
+.hidden {
+    display: none;
+}
+
+/********* USER EDIT *****************/
+
+.edit-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.edit-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.edit-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.edit-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-container a{
+    text-decoration: none;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.edit-container a:hover{
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+.edit-container button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-btn {
+    background-color: #e74c3c;
+}
+
+.cancel-btn:hover {
+    background-color: #c0392b;
+}
+
+.edit-btn a {
+    color: #fff; 
+    text-decoration: none; 
+}
+
+.edit-btn a:hover {
+    color: #e0e0e0; 
+}
+
+.message {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.message.error {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+
+
+.contact-container {
+    width: 50%;
+    max-width: 500px;
+    background-color: #e9e9e9;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.contact-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: black;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.input-box {
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.input-box select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffffff;
+    font-size: 1em;
+}
+
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+    text-align: left; 
+    padding-left: 5px;
+}
+
+::placeholder {
+    font-size: 1em;
+    color: #999; 
+    font-weight: 400; 
+}
+
+.input-box input,
+.input-box textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffffff;
+    font-size: 1em;
+}
+
+.input-box textarea {
+    resize: none;
+    height: 150px;
+}
+
+.contact-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #062c53;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.contact-btn:hover {
+    background-color: #0b335f;
+}
+
+
+.success, .error {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
