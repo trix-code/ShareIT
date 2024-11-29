@@ -59,116 +59,112 @@ $result = mysqli_query($conn, "SELECT * FROM spravce_predplatneho WHERE user_id=
         <div class="loader"></div>
     </div>
     <nav>
-    <div class="logo">
-        <p><a href="home.php"><b>ShareIT</b></a></p>
-    </div>
-    <ul id="menuList">
-        <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
-        <li><a href="finance.html">Finance</a></li>
-        <li><a href="contact.php">Kontakt</a></li>
-        <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
-        <li class="notification-container">
-            <div class="notification-icon" onclick="toggleNotifications()">
-                <img src="img/notification.png" alt="Notifikace" />
-                <span id="notificationCount" class="notification-count hidden"></span>
-            </div>
-            <div id="notificationSidebar" class="notification-sidebar hidden">
-                <h4>Notifikace</h4>
-                <ul id="notificationList"></ul>
-            </div>
-        </li>
-    </ul>
-    <div class="menu-icon" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
-</nav>
+        <div class="logo">
+            <p><a href="home.php"><b>ShareIT</b></a></p>
+        </div>
+        <ul id="menuList">
+            <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
+            <li><a href="finance.html">Finance</a></li>
+            <li><a href="contact.php">Kontakt</a></li>
+            <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
 
+            <li>
+                <div class="notification-icon" onclick="location.href='php/notifications.php'">
+                    <img src="img/notification.png" alt="Notifikace" class="bell-icon">
+                    <span id="notificationCount" class="notification-count hidden">0</span>
+                </div>
+            </li>
 
+        </ul>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+    </nav>
 
     <div class="subscription-container">
-        <div id="noSubscriptionsMessage" class="no-subscriptions">
-            <p><b>Tvoje předplatné: <span style="color: red;">Momentálně nemáš vytvořené žádné předplatné!</span></b></p>
-            <div class="add-subscription-button" onclick="showSubscriptionForm()">
-                <div class="plus-icon">+</div>
-                <b>Vytvoř si nové předplatné!</b>
-            </div>  
-        </div>
+    <div id="noSubscriptionsMessage" class="no-subscriptions">
+        <p><b>Tvoje předplatné: <span style="color: red;">Momentálně nemáš vytvořené žádné předplatné!</span></b></p>
+    </div>
 
-        <div id="subscriptionFormContainer" class="subscription-form hidden">
-            <h2>Přidat Nové Předplatné:</h2>
-            <form method="POST" action="spravce_predplatneho.php" id="subscriptionForm">
-                <div class="field input">
-                    <label for="serviceName"><b>Název služby:</b></label>
-                    <input type="text" id="serviceName" name="name" required>
-                </div>
-
-                <div class="field input">
-                    <label for="price"><b>Cena služby:</b></label>
-                    <input type="number" id="price" name="price" placeholder="380 Kč,-" required>
-                </div>
-
-                <div class="field input">
-                    <label for="paymentFrequency"><b>Frekvence plateb:</b></label>
-                    <select id="paymentFrequency" name="frequency" required>
-                        <option value="měsíčně">Měsíční</option>
-                        <option value="roční">Roční</option>
-                    </select>
-                </div>
-
-                <div class="field input">
-                    <label for="nextPayment"><b>Datum další platby:</b></label>
-                    <input type="date" id="nextPayment" name="nextPayment" required>
-                </div>
-
-                <div class="field input">
-                    <label for="category">Kategorie:</label>
-                    <select id="category" name="category" required>
-                        <option value="Zábava">Zábava</option>
-                        <option value="Filmy">Filmy</option>
-                        <option value="Sporty">Sporty</option>
-                        <option value="Hudba">Hudba</option>
-                        <option value="Škola">Škola</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <button type="submit" class="btn"><b>Přidat předplatné</b></button>
-                </div>
-            </form>
-        </div>
-    
-        <!-- Zobrazení uložených předplatných -->
-        <div id="subscriptionsContainer" class="subscription-list-spravce">
-            <div class="subscriptions-text">
-                <h2><b>Tvoje Předplatné:</b></h2>    
+    <div id="subscriptionFormContainer" class="subscription-form hidden">
+        <h2>Přidat Nové Předplatné:</h2>
+        <form method="POST" action="spravce_predplatneho.php" id="subscriptionForm">
+            <div class="field input">
+                <label for="serviceName"><b>Název služby:</b></label>
+                <input type="text" id="serviceName" name="name" required>
             </div>
-            <div id="subscriptions">
-                <?php
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<div class="subscription-card">';
-                        echo '<h3>' . $row['name'] . ' (' . $row['category'] . ')</h3>';
-                        echo '<p>Cena: ' . $row['price'] . ' Kč</p>';
-                        echo '<p>Frekvence: ' . $row['frequency'] . '</p>';
-                        echo '<p>Další platba: ' . $row['next_payment'] . '</p>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo '<p><b>Žádná předplatná k zobrazení.</b></p>';
-                }
-                ?>
+
+            <div class="field input">
+                <label for="price"><b>Cena služby:</b></label>
+                <input type="number" id="price" name="price" placeholder="380 Kč,-" required>
             </div>
-            <div class="add-subscription-button" onclick="showSubscriptionForm()">
-                <div class="plus-icon">+</div>
-                <p><b>Přidat nové předplatné</b></p>
+
+            <div class="field input">
+                <label for="paymentFrequency"><b>Frekvence plateb:</b></label>
+                <select id="paymentFrequency" name="frequency" required>
+                    <option value="měsíčně">Měsíční</option>
+                    <option value="roční">Roční</option>
+                </select>
+            </div>
+
+            <div class="field input">
+                <label for="nextPayment"><b>Datum další platby:</b></label>
+                <input type="date" id="nextPayment" name="nextPayment" required>
+            </div>
+
+            <div class="field input">
+                <label for="category">Kategorie:</label>
+                <select id="category" name="category" required>
+                    <option value="Zábava">Zábava</option>
+                    <option value="Filmy">Filmy</option>
+                    <option value="Sporty">Sporty</option>
+                    <option value="Hudba">Hudba</option>
+                    <option value="Škola">Škola</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <button type="submit" class="btn"><b>Přidat předplatné</b></button>
+            </div>
+        </form>
+    </div>
+
+    <div id="subscriptionsContainer" class="subscription-list-spravce">
+        <div class="subscriptions-text">
+            <h2><b>Tvoje Předplatné:</b></h2>
+        </div>
+        <div id="subscriptions">
+            <div class="subscription-card">
+                <h3>Spotify (Hudba)</h3>
+                <p>Cena: 120 Kč</p>
+                <p>Frekvence: měsíčně</p>
+                <p>Další platba: 2024-12-10</p>
+                <button>Upravit</button>
+                <button>Odstranit</button>
+            </div>
+            <div class="subscription-card">
+                <h3>asdad (Sporty)</h3>
+                <p>Cena: 1241 Kč</p>
+                <p>Frekvence: roční</p>
+                <p>Další platba: 2025-10-10</p>
+                <button>Upravit</button>
+                <button>Odstranit</button>
             </div>
         </div>
     </div>
 
+    <!-- Add subscription button -->
+    <div class="add-subscription-button" onclick="showSubscriptionForm()">
+        <div class="plus-icon">+</div>
+        <p><b>Přidat nové předplatné</b></p>
+    </div>
+</div>
+
+
     <script src="js/script.js"></script>
-    <script src="https://kit.fontawesome.com/f8e1a90484.js" crossorigin="anonymous"></script>
+    <script src="js/notification-all.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/loading.js"></script>
 </body>
