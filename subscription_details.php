@@ -94,7 +94,7 @@ $subscription = mysqli_fetch_assoc($result);
 </style>
 
 <body>
-    <nav>
+<nav>
         <div class="logo">
             <p><a href="home.php"><b>ShareIT</b></a></p>
         </div>
@@ -103,6 +103,14 @@ $subscription = mysqli_fetch_assoc($result);
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
+
+            <li>
+                <div class="notification-icon" onclick="location.href='php/notifications.php'">
+                    <img src="img/notification.png" alt="Notifikace" class="bell-icon">
+                    <span id="notificationCount" class="notification-count hidden">0</span>
+                </div>
+            </li>
+
         </ul>
             <div class="menu-icon" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -113,7 +121,7 @@ $subscription = mysqli_fetch_assoc($result);
 
     <div class="container">
 
-        <div class="subscription-card">
+        <div class="subscription-card-detail">
             <?php
             // Zobrazení ikony podle názvu služby
             if ($subscription['service_name'] === 'Netflix') {
@@ -169,7 +177,7 @@ $subscription = mysqli_fetch_assoc($result);
         <script src="js/home.js"></script>
         <script src="https://kit.fontawesome.com/f8e1a90484.js" crossorigin="anonymous"></script>
         <script src="js/navbar.js"></script>
-        <script src="js/notification.js"></script>
+        <script src="js/notification-all.js"></script>
     </div>
 </body>
 </html>
