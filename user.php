@@ -125,6 +125,14 @@ $subscriptionCount = $subscriptionData['subscription_count'] ?? 0;
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
+
+            <li>
+                <div class="notification-icon" onclick="location.href='php/notifications.php'">
+                    <img src="img/notification.png" alt="Notifikace" class="bell-icon">
+                    <span id="notificationCount" class="notification-count hidden">0</span>
+                </div>
+            </li>
+
         </ul>
             <div class="menu-icon" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -205,7 +213,7 @@ $subscriptionCount = $subscriptionData['subscription_count'] ?? 0;
     <script src="/shareIT/js/user.js"></script>
 
   
-    <script>
+    <script>   
         // Zobrazíme vlastní alert na základě GET parametrů
         const urlParams = new URLSearchParams(window.location.search);
         const errorMessage = urlParams.get('error');
@@ -238,6 +246,8 @@ $subscriptionCount = $subscriptionData['subscription_count'] ?? 0;
             alert.classList.add("hidden");
         }
     </script>
+
+<script src="js/notification-all.js"></script>
 
 </body>
 </html>
