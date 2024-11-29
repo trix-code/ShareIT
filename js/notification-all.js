@@ -1,5 +1,6 @@
+
 function loadNotifications() {
-    fetch('../php/fetch_notifications.php')
+    fetch('php/fetch_notifications.php')
         .then(response => response.json())
         .then(data => {
             const notificationsList = document.getElementById('notificationsList');
@@ -24,58 +25,34 @@ function loadNotifications() {
         });
 }
 
+// Funkce pro zpracování akce (Potvrdit, Zrušit)
 function handleNotificationAction(notificationId, action) {
-    console.log("Sending data:", { id: notificationId, action }); // Ladění dat
-
-    fetch('../php/update_notification_status.php', {
+    fetch('php/update_notification_status.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: notificationId, action: action }),
+        body: JSON.stringify({ id: notificationId, action: action })  // Posíláme ID notifikace a akci
     })
-        .then(response => response.json())
-        .then(data => {
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (data.success) {
-                if (action === 'confirm') {
-                    successMessage.textContent = 'Žádost byla úspěšně přijata.';
-                } else if (action === 'reject') {
-                    successMessage.textContent = 'Žádost byla úspěšně odstraněna.';
-                }
-                successMessage.style.display = 'block';
-                errorMessage.style.display = 'none';
-
-                // Zobrazení zprávy na 5 sekund
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                    location.reload(); // Aktualizace stránky po 5 sekundách
-                }, 5000);
-            } else {
-                successMessage.style.display = 'none';
-                errorMessage.textContent = data.error || "Chyba při zpracování požadavku.";
-                errorMessage.style.display = 'block';
-
-                // Zobrazení chybové zprávy na 5 sekund
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 5000);
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Pokud je akce potvrzena, změníme stav v UI nebo odstraníme notifikaci
+            if (action === 'confirm') {
+                // Aktualizujeme počet notifikací
+                updateNotificationCount();
+                alert('Notifikace byla označena jako přečtená!');
+            } else if (action === 'reject') {
+                alert('Notifikace byla odstraněna.');
+                location.reload();  // Po odstranění stránku znovu načteme
             }
-        })
-        .catch(error => {
-            console.error("Chyba při komunikaci se serverem:", error);
-
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.textContent = "Chyba při připojení k serveru.";
-            errorMessage.style.display = 'block';
-
-            // Zobrazení chybové zprávy na 5 sekund
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 5000);
-        });
+        } else {
+            alert('Chyba: ' + (data.error || 'Neznámá chyba.'));
+        }
+    })
+    .catch(error => {
+        console.error('Chyba při zpracování notifikace:', error);
+    });
 }
 
 
@@ -104,3 +81,29 @@ function sendInterest(subscriptionId, subscriptionName, recipientId) {
         alert("Došlo k chybě.");
     });
 }
+
+    
+
+
+function updateNotificationCount() {
+    fetch('php/fetch_notifications.php') 
+        .then(response => response.json())
+        .then(data => {
+            const notificationCount = document.getElementById('notificationCount');
+            
+            if (data.success) {
+                if (data.unreadCount > 0) {
+                    notificationCount.textContent = data.unreadCount;
+                    notificationCount.style.display = 'inline';  // Zobrazí číslo
+                } else {
+                    notificationCount.style.display = 'none';  // Skryje číslo, pokud je 0
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Chyba při načítání počtu notifikací:', error);
+        });
+}
+
+setInterval(updateNotificationCount, 30000);
+updateNotificationCount();  
