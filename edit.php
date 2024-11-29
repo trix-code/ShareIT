@@ -54,6 +54,14 @@ if (!$userData) {
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
+
+            <li>
+                <div class="notification-icon" onclick="location.href='php/notifications.php'">
+                    <img src="img/notification.png" alt="Notifikace" class="bell-icon">
+                    <span id="notificationCount" class="notification-count hidden">0</span>
+                </div>
+            </li>
+
         </ul>
             <div class="menu-icon" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -107,5 +115,6 @@ if (!$userData) {
     <script src="js/edit.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/loading.js"></script>
+    <script src="js/notification-all.js"></script>
 </body>
 </html>
