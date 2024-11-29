@@ -10,7 +10,16 @@ if (!isset($_SESSION['id'])) {
 
 $userId = $_SESSION['id'];
 
-// Opravený dotaz: zajistí, že jsou načteny pouze notifikace pro aktuálního uživatele (user_id)
+// Dotaz pro získání počtu nepřečtených notifikací
+$query_count = "
+    SELECT COUNT(*) AS unread_count 
+    FROM notifications 
+    WHERE user_id = '$userId' AND is_read = 0";  // is_read = 0 znamená nepřečtené
+$result_count = mysqli_query($con, $query_count);
+$row_count = mysqli_fetch_assoc($result_count);
+$unreadCount = $row_count['unread_count'];
+
+// Dotaz pro získání všech notifikací pro uživatele
 $query = "
     SELECT 
         n.*, 
@@ -34,8 +43,9 @@ if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $notifications[] = $row;
     }
-    echo json_encode(['success' => true, 'notifications' => $notifications]);
+    echo json_encode(['success' => true, 'unreadCount' => $unreadCount, 'notifications' => $notifications]);
 } else {
-    echo json_encode(['success' => false, 'notifications' => []]);
+    echo json_encode(['success' => false, 'unreadCount' => 0, 'notifications' => []]);
 }
 ?>
+    
