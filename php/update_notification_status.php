@@ -1,79 +1,50 @@
 <?php
-// Zapnutí chybového výpisu pro ladění
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+session_start();
 header('Content-Type: application/json');
+include("config.php");
 
-// Načtení konfigurace databáze
-include("../php/config.php");
-
-// Kontrola připojení k databázi
-if (!$con) {
-    echo json_encode(["success" => false, "error" => "Chyba připojení k databázi."]);
+if (!isset($_SESSION['id'])) {
+    echo json_encode(['success' => false, 'error' => 'Uživatel není přihlášen.']);
     exit();
 }
 
-// Povolení pouze POST požadavků
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(["success" => false, "error" => "Pouze POST požadavky jsou povoleny."]);
-    exit();
-}
+$userId = $_SESSION['id'];
 
-// Načtení dat z požadavku
-$data = json_decode(file_get_contents("php://input"), true);
+// Získání ID notifikace a akce
+$data = json_decode(file_get_contents('php://input'), true);
+$notificationId = $data['id'];
+$action = $data['action'];  // 'confirm' nebo 'reject'
 
-if (!isset($data['id'], $data['action'])) {
-    echo json_encode(["success" => false, "error" => "Chybí parametry: 'id' nebo 'action'."]);
-    exit();
-}
+// Pokud akce je potvrzení, označíme notifikaci jako přečtenou
+if ($action === 'confirm') {
+    // Aktualizace stavu na přečteno (is_read = 1)
+    $query = "UPDATE notifications SET is_read = 1 WHERE id = ? AND user_id = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("ii", $notificationId, $userId); // Parametry pro SQL dotaz
+    $stmt->execute();
 
-$notificationId = intval($data['id']);
-$action = $data['action'];
-
-try {
-    if ($action === 'confirm') {
-        // Aktualizace stavu na přečteno
-        $query = "UPDATE notifications SET is_read = 1 WHERE id = ?";
-        $stmt = $con->prepare($query);
-
-        if (!$stmt) {
-            throw new Exception("Chyba při přípravě SQL dotazu: " . $con->error);
-        }
-
-        $stmt->bind_param("i", $notificationId);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            echo json_encode(["success" => true, "message" => "Notifikace byla potvrzena."]);
-        } else {
-            echo json_encode(["success" => false, "error" => "Notifikace nebyla nalezena."]);
-        }
-
-        $stmt->close();
-    } elseif ($action === 'reject') {
-        // Odmítnutí (mazání) notifikace
-        $query = "DELETE FROM notifications WHERE id = ?";
-        $stmt = $con->prepare($query);
-
-        if (!$stmt) {
-            throw new Exception("Chyba při přípravě SQL dotazu: " . $con->error);
-        }
-
-        $stmt->bind_param("i", $notificationId);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            echo json_encode(["success" => true, "message" => "Notifikace byla odmítnuta a smazána."]);
-        } else {
-            echo json_encode(["success" => false, "error" => "Notifikace nebyla nalezena."]);
-        }
-
-        $stmt->close();
+    if ($stmt->affected_rows > 0) {
+        echo json_encode(['success' => true, 'message' => 'Notifikace byla označena jako přečtená.']);
     } else {
-        echo json_encode(["success" => false, "error" => "Neplatná akce."]);
+        echo json_encode(['success' => false, 'error' => 'Chyba při aktualizaci notifikace.']);
     }
-} catch (Exception $e) {
-    // Zpracování serverové chyby
-    error_log("Chyba: " . $e->getMessage());
-    echo json_encode(["success" => false, "error" => "Serverová chyba."]);
+
+    $stmt->close();
+} elseif ($action === 'reject') {
+    // Pokud je akce 'reject', smažeme notifikaci
+    $query = "DELETE FROM notifications WHERE id = ? AND user_id = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("ii", $notificationId, $userId);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        echo json_encode(['success' => true, 'message' => 'Notifikace byla úspěšně odstraněna.']);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Chyba při mazání notifikace.']);
+    }
+
+    $stmt->close();
+} else {
+    echo json_encode(['success' => false, 'error' => 'Neplatná akce.']);
 }
+?>
