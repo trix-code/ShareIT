@@ -7,17 +7,8 @@ function toggleMenu() {
 }
 
 
-
-function toggleNotifications() {
-    const dropdown = document.getElementById('notificationDropdown');
-    dropdown.classList.toggle('hidden');
-    if (!dropdown.classList.contains('hidden')) {
-        fetchNotifications();
-    }
-}
-
 function updateNotificationIcon() {
-    fetch('php/fetch_notifications.php')
+    fetch('../php/fetch_notifications.php')
         .then(response => response.json())
         .then(data => {
             const notificationCount = data.notifications.filter(n => n.is_read === 0).length;
