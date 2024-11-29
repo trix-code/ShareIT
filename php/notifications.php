@@ -13,7 +13,10 @@ $query = "
     SELECT 
         n.*, 
         u.username AS sender_name, 
-        s.service_name AS subscription_name 
+        u.profile_pic, 
+        s.service_name, 
+        s.plan,
+        s.category
     FROM 
         notifications n
     LEFT JOIN 
@@ -33,9 +36,42 @@ if ($result && mysqli_num_rows($result) > 0) {
         $notifications[] = $row;
     }
 }
+
+function time_elapsed_string_short($datetime) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    if ($diff->y > 0) {
+        return $diff->y . 'y';
+    } elseif ($diff->m > 0) {
+        return $diff->m . 'm';
+    } elseif ($diff->d > 0) {
+        return $diff->d . 'd';
+    } elseif ($diff->h > 0) {
+        return $diff->h . 'h';
+    } elseif ($diff->i > 0) {
+        return $diff->i . 'm';
+    } else {
+        return $diff->s . 's';
+    }
+}
+
+// Funkce pro získání správné ikony na základě kategorie
+function get_category_icon($category) {
+    switch ($category) {
+        case 'Hudba':
+            return '../img/icons/music.png';
+        case 'Filmy':
+            return '../img/icons/film.png';
+        case 'Hry':
+            return '../img/icons/games.png';
+        case 'Ostatní':
+            return '../img/icons/other.png';
+    }
+}
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -44,7 +80,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Jura:wght@300..700&family=Krona+One&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <title>Home - Sdílej předplatné</title>
 </head>
@@ -73,14 +109,36 @@ if ($result && mysqli_num_rows($result) > 0) {
         <?php else: ?>
             <?php foreach ($notifications as $notification): ?>
                 <div class="notification-item">
-                    <p><strong><?php echo htmlspecialchars($notification['sender_name']); ?></strong> 
-                    má zájem o vaše předplatné: 
-                    <em><?php echo htmlspecialchars($notification['subscription_name']); ?></em>.</p>
-                    <span><?php echo htmlspecialchars($notification['created_at']); ?></span>
+                    <div class="notification-header">
+                        <img 
+                            src="../img/profiles/<?php echo htmlspecialchars($notification['profile_pic']); ?>" 
+                            alt="Profilová fotka" 
+                            class="profile-picture"
+                        >
+                        <div class="notification-info">
+                            <h3><?php echo htmlspecialchars($notification['sender_name']); ?></h3>
+                            <p>Má zájem o tvoje sdílené předplatné: 
+                                <strong><?php echo htmlspecialchars($notification['service_name'] . ' – ' . $notification['plan']); ?></strong>
+                            </p>
+                        </div>
+                        <span class="notification-time">
+                            Před <?php echo time_elapsed_string_short($notification['created_at']); ?>
+                        </span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="contact-button">📧 Kontakt</button>
+                        <button class="accept-button" onclick="handleNotificationAction(<?php echo $notification['id']; ?>, 'confirm')">✔️ Potvrdit</button>
+                        <button class="cancel-button" onclick="handleNotificationAction(<?php echo $notification['id']; ?>, 'reject')">❌ Zrušit</button>
+                        <!-- Ikona podle kategorie -->
+                        <img src="<?php echo get_category_icon($notification['category']); ?>" alt="Ikona kategorie" class="category-icon">
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
+
+    <div id="successMessage" class="message success" style="display: none;">Úspěšně provedeno.</div>
+    <div id="errorMessage" class="message error" style="display: none;">Chyba při zpracování požadavku. Zkuste to prosím znovu.</div>
 
     <script src="../js/notification.js"></script>
     <script src="../js/navbar.js"></script>
