@@ -13,13 +13,13 @@ body {
     background: #ffffff;
     
 }
-.container {
+.login-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     min-height: 90vh;
 }
-.container h1{
+.login-container h1{
     margin-top: 60px;
 }
 .box {
@@ -202,35 +202,46 @@ nav ul li a {
 
 
 
+/* Ikona notifikace v navigaci */
 .notification-icon {
     position: relative;
     display: inline-block;
     cursor: pointer;
 }
 
-.notification-icon img {
-    width: 24px;
-    height: 24px;
+.notification-icon img{
+    height: 34px;
+    width: 34px;
 }
 
+/* Počet notifikací vedle zvonečku */
 .notification-count {
     position: absolute;
     top: -5px;
-    right: -10px;
+    right: -5px;
     background-color: red;
     color: white;
-    font-size: 12px;
-    padding: 2px 5px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
     border-radius: 50%;
-    display: none;
+    min-width: 20px;
+    text-align: center;
+    line-height: 20px;
 }
+
+/* Styl pro zvoneček */
+.bell-icon {
+    width: 30px;
+    height: 30px;
+}
+
 
 .notification-count.hidden {
     display: none;
 }
-
 .notification-list {
-    max-width: 800px;
+    max-width: 400px;
     margin: auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -238,77 +249,168 @@ nav ul li a {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.notification-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.notification-item .actions button {
-    margin-left: 10px;
-}
+/* Notifikace - Hlavní položka */
 
 .notification-container {
-    max-width: 800px;
-    margin: 40px auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Kulim Park', sans-serif;
+    width: 800px;
+    margin: auto;
+    background-color: rgb(247, 247, 247);
+    margin-top: 30px;
+    border-radius: 30px;
 }
 
-.notification-container h2 {
+.notification-container h2{
+    font-size: 5vw;
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5em;
-    color: #333;
 }
 
 .notification-item {
+    width: 70%;
+    margin: auto;
     display: flex;
-    align-items: center;
+    margin-top: 20px;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 15px;
-    margin: 10px 0;
+    padding: 20px;
+    margin-bottom: 15px;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.notification-item img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
+/* Hlavička notifikace */
+.notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
 }
 
+/* Profilová fotka */
+.notification-header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Informace o uživateli */
 .notification-details {
     flex-grow: 1;
     margin-left: 15px;
+    color: #333;
+    font-family: 'Kulim Park', sans-serif;
+}
+
+.notification-details h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #000;
+}
+
+.notification-time {
+    font-size: 0.9em;
+    color: #888;
+    text-align: right;
+    white-space: nowrap; 
+    margin: 0; /
+}
+
+
+/* Čas notifikace */
+.notification-time {
+    font-size: 0.9em;
+    color: #888;
+    align-self: flex-start;
+    width: 10%;
+}
+
+/* Tlačítka akcí */
+.notification-actions {
+    display: flex;
+    align-items: center; 
+    margin-top: 15px;
+    gap: 10px;
 }
 
 .notification-actions button {
-    margin-left: 10px;
-    padding: 8px 12px;
+    padding: 10px 15px;
     border: none;
-    border-radius: 4px;
-    font-size: 1em;
+    border-radius: 5px;
+    font-size: 0.8em;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 20px;
+}
+
+/* Přidání odsazení pro obrázek */
+.notification-actions img {
+    height: 20px;
+    margin-left: auto; 
+
+}
+
+/* Styl tlačítka "Potvrdit" */
+.notification-actions .accept-button {
+    background-color: #1fa507; /* Zelená */
     color: white;
 }
 
-.notification-actions .accept {
-    background-color: #28a745;
+.notification-actions .accept-button:hover {
+    background-color: #1f8c09;
 }
 
-.notification-actions .reject {
-    background-color: #dc3545;
+/* Styl tlačítka "Odmítnout" */
+.notification-actions .cancel-button {
+    background-color: #8c090b; /* Červená */
+    color: white;
+}   
+
+.notification-actions .cancel-button:hover {
+    background-color: #5e0305;
+}
+
+/* Tlačítko Kontakt - upraveno pro konzistentní vzhled */
+.notification-actions .contact-button {
+    background-color: #0b1678; /* Modrá */
+    color: white;
+   
+}
+
+.notification-actions .contact-button:hover {
+    background-color: #050932;
+}
+
+
+/* Skrytí notifikační zprávy */
+.notification-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Posune zprávu do středu */
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Na vrchu všech ostatních prvků */
+    text-align: center;
+}
+
+/* Styl pro tlačítko OK */
+.notification-message button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.notification-message button:hover {
+    background-color: #45a049;
 }
 
 
@@ -391,51 +493,69 @@ a {
 }
 
 /********* Stylovani predplatne stranky *****************/
+/* Kontejner */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: transparent;
+}
 
+/* Seznam předplatných */
 .subscription-list {
-    margin-top: 20px;
-    background: #f0f0f0;
+    background-color: transparent;
     padding: 20px;
     border-radius: 10px;
-    width: 100%;     
+    width: 100%;
 }
-.subscription-card-list{
+
+.subscription-card-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
     max-width: 100%;
+    background-color: transparent;
 }
 
-.subscriptions-text h2{
-    font-size: 3em;
-    text-align: center;
-    margin-top: 20px;
-    font-family: "Jura", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
-    font-style: normal;
-}
+/* Karta předplatného */
 .subscription-card {
     background: #ffffff;
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 10px;
-    margin: 10px auto;
+    margin: 10px 0; /* Vertikální mezera */
     text-align: center;
-    width: 270px;
-    max-width: 500px;
+    width: calc(33.33% - 20px); /* Šířka s odsazením */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
+.subscription-card-detail{
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px 0; /* Vertikální mezera */
+    text-align: center;
+    width: 400px; /* Šířka s odsazením */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+.subscription-card-detail img{
+    width: 250px;
+}
+
 .subscription-card h4 {
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .subscription-card p {
     margin: 5px 0;
     font-size: 0.95em;
 }
+
 .subscription-card button {
     background-color: #00A9DE;
     color: #fff;
@@ -447,48 +567,351 @@ a {
     font-size: 0.9em;
     transition: background-color 0.3s;
 }
+
 .subscription-card button:hover {
     background-color: #008bb2;
 }
-.add-subscription-button {
-    background: #f0f0f0;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: center;
-    margin: 20px auto;
-    width: 50%;
-    max-width: 300px;
-    font-size: 20px;
+
+/* Formulář předplatného */
+.subscription-form-container {
+    display: none;
+    min-width: 600px;
+    margin: auto;
+    background-color: transparent;
 }
 
-.add-subscription-button p{
-    font-size: 25px;
+.subscription-form {
+    width: 100%;
+    background-color: transparent;
 }
+
+h2 {
+    font-size: 26px;
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+textarea {
+    resize: none;
+}
+
+/* Obrázky a detaily předplatného */
+.subscription-img {
+    width: 180px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+
+
+.subscription-details {
+    margin-top: 10px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Karta pro přidání předplatného */
+.add-subscription-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 40px;
+    margin: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #007bff;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.add-subscription-card p {
+    color: black;
+}
+
 .plus-icon {
-    font-size: 5em;
+    font-size: 4em;
     color: #00A9DE;
 }
-.add-subscription-button:hover .plus-icon {
+
+.add-subscription-card:hover .plus-icon {
     color: #008bb2;
 }
-/* Upravit barvu pozadí pro plusko */
-.add-subscription-button {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
+
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+    min-width: 96%; /* Zarovnání na šířku předplatných */
+    color: black;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
     text-align: center;
-    margin: 20px auto;
-    width: 50%;
-    max-width: 300px;
-    font-size: 20px;
 }
+
+.dropdown-button:hover {
+    background-color: #c0bebe;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    z-index: 1000;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+    text-align: center;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f2f2f2;
+}
+
+.custom-dropdown.open .dropdown-menu {
+    display: block;
+}
+
+
+/* Hidden elements */
 .hidden {
     display: none;
 }
+
+
+
+
+
+/* Subscriptions header */
+.subscriptions-text h2 {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* Main Container */
+.subscription-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Subscription List */
+.subscription-list-spravce {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.subscriptions-text h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em; /* Increased font size for the header */
+    color: #333;
+}
+
+/* Subscriptions Grid */
+.subscription-list-spravce #subscriptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center align cards */
+}
+
+/* Subscription Card */
+.subscription-list-spravce .subscription-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    width: 250px; /* Adjusted width for a rectangular layout */
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-list-spravce .subscription-card h3 {
+    font-size: 1.3em; /* Larger font size for titles */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subscription-list-spravce .subscription-card p {
+    margin: 5px 0;
+    font-size: 1em; /* Adjusted text size */
+}
+
+/* Buttons inside Subscription Card */
+.subscription-list-spravce .subscription-card button {
+    background-color: #00A9DE;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 1em; /* Increased font size for better visibility */
+    transition: background-color 0.3s;
+}
+
+.subscription-list-spravce .subscription-card button:hover {
+    background-color: #008bb2;
+}
+
+/* Add Subscription Button */
+.add-subscription-button {
+    background: #f3f2f2;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.add-subscription-button.hidden {
+    display: none; 
+}
+
+.add-subscription-button p {
+    margin-top: 10px;
+    font-size: 1em;
+    color: black;
+}
+
+.plus-icon {
+    font-size: 9em;
+    color: #00A9DE;
+}
+
+.add-subscription-button:hover .plus-icon {
+    color: #008bb2;
+}
+
+
+/* Subscription Form */
+.subscription-form-container {
+    display: none;
+    padding: 20px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    width: 100%;
+    
+}
+
+.subscription-form {
+    width: 100%;
+}
+
+.subscription-form h2 {
+    font-size: 26px;
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.subscription-form .field {
+    margin-bottom: 15px;
+}
+
+.subscription-form .field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.subscription-form .field input, 
+.subscription-form .field select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .subscription-list-spravce #subscriptions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .subscription-list-spravce .subscription-card {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .add-subscription-button {
+        width: 100%;
+    }
+}
+
+
+
+
+
 
 .loading-screen {
     position: fixed;
@@ -530,7 +953,7 @@ a {
     border-radius: 10px;
     margin: 20px auto;
     width: 50%;
-    max-width: 400px;
+    max-width: 500px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
