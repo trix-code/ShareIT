@@ -5,6 +5,7 @@ const noSubscriptionsMessage = document.getElementById('noSubscriptionsMessage')
 const subscriptionFormContainer = document.getElementById('subscriptionFormContainer');
 const subscriptionsContainer = document.getElementById('subscriptionsContainer');
 const subscriptionsList = document.getElementById('subscriptions');
+const nextPaymentInput = document.getElementById('nextPayment');
 
 function showSubscriptionForm() {
     subscriptionFormContainer.classList.remove('hidden'); 
@@ -21,7 +22,24 @@ function hideSubscriptionForm() {
     }
 }
 
-// Handle form submission for adding or updating a subscription
+// Přidání validace pro datum platby
+nextPaymentInput.addEventListener('change', function () {
+    const selectedDate = new Date(this.value);
+    const today = new Date();
+    const maxYear = 2026;
+
+    // Pokud je rok větší než 2026, nastaví se maximální povolené datum
+    if (selectedDate.getFullYear() > maxYear) {
+        this.value = `${maxYear}-12-31`; // Nastaví poslední den roku 2026
+    }
+
+    // Pokud je datum v minulosti, resetuje hodnotu
+    if (selectedDate < today) {
+        this.value = ''; // Vymaže neplatné datum
+    }
+});
+
+// Ošetření odesílání formuláře pro přidání nebo úpravu předplatného
 subscriptionForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -52,19 +70,19 @@ subscriptionForm.addEventListener('submit', (e) => {
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                loadSubscriptions();
-                subscriptionForm.reset();
-                hideSubscriptionForm();
-            } else {
-                alert("Chyba při ukládání předplatného.");
-            }
-        });
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            loadSubscriptions();
+            subscriptionForm.reset();
+            hideSubscriptionForm();
+        } else {
+            alert("Chyba při ukládání předplatného.");
+        }
+    });
 });
 
-// Load subscriptions from the server
+// Načtení předplatného ze serveru
 function loadSubscriptions() {
     fetch('subscription_actions.php?action=load')
         .then(response => response.json())
@@ -74,7 +92,7 @@ function loadSubscriptions() {
         });
 }
 
-// Update the subscriptions list dynamically
+// Aktualizace seznamu předplatných
 function updateSubscriptions() {
     subscriptionsList.innerHTML = '';
 
@@ -117,7 +135,7 @@ function updateSubscriptions() {
     }
 }
 
-// Delete a subscription
+// Mazání předplatného
 function deleteSubscription(id) {
     fetch('subscription_actions.php', {
         method: 'POST',
@@ -126,17 +144,17 @@ function deleteSubscription(id) {
         },
         body: JSON.stringify({ action: 'delete', id })
     })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                loadSubscriptions();
-            } else {
-                alert("Chyba při mazání předplatného.");
-            }
-        });
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            loadSubscriptions();
+        } else {
+            alert("Chyba při mazání předplatného.");
+        }
+    });
 }
 
-// Edit a subscription
+// Úprava předplatného
 function editSubscription(index) {
     const subscription = subscriptions[index];
 
@@ -152,5 +170,27 @@ function editSubscription(index) {
     showSubscriptionForm();
 }
 
-// Load subscriptions when the page loads
+// Načtení předplatného při načtení stránky
 loadSubscriptions();
+
+
+function showSubscriptionForm() {
+    subscriptionFormContainer.classList.remove('hidden'); 
+    noSubscriptionsMessage.classList.add('hidden'); 
+    subscriptionsContainer.classList.add('hidden');
+
+    // Skryje tlačítko pro přidání
+    document.querySelector('.add-subscription-button').classList.add('hidden');
+}
+
+function hideSubscriptionForm() {
+    subscriptionFormContainer.classList.add('hidden'); 
+    if (subscriptions.length === 0) {
+        noSubscriptionsMessage.classList.remove('hidden'); 
+    } else {
+        subscriptionsContainer.classList.remove('hidden'); 
+    }
+
+    // Zobrazí tlačítko pro přidání
+    document.querySelector('.add-subscription-button').classList.remove('hidden');
+}
