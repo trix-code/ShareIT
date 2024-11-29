@@ -10,6 +10,14 @@ if (!isset($_SESSION['id'])) {
 $userId = $_SESSION['id'];
 
 $query = "
+    SELECT COUNT(*) AS unread_count 
+    FROM notifications 
+    WHERE user_id = '$userId' AND is_read = 0";  // is_read = 0 znamená nepřečtené
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_assoc($result);
+$unreadCount = $row['unread_count'];
+
+$query = "
     SELECT 
         n.*, 
         u.username AS sender_name, 
@@ -85,22 +93,26 @@ function get_category_icon($category) {
     <title>Home - Sdílej předplatné</title>
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <p><a href="../home.php"><b>ShareIT</b></a></p>
-        </div>
-        <ul id="menuList">
-            <li><a href="../spravce_predplatneho.php">Správce předplatných</a></li>
-            <li><a href="../finance.html">Finance</a></li>
-            <li><a href="support.html">Podpora</a></li>
-            <li><a href="../user.php"><img src="../img/user.png" height="40px"></a></li>
-            <li>
-                <div class="notification-icon" onclick="location.href='notifications.php'">
-                    <img src="../img/notification.png" alt="Notifikace" class="bell-icon">
-                    <span id="notificationCount" class="notification-count hidden">0</span>
-                </div>
-            </li>
-        </ul>
+<nav>
+    <div class="logo">
+        <p><a href="../home.php"><b>ShareIT</b></a></p>
+    </div>
+    <ul id="menuList">
+        <li><a href="../spravce_predplatneho.php">Správce Předplatných</a></li>
+        <li><a href="../finance.html">Finance</a></li>
+        <li><a href="../contact.php">Kontakt</a></li>
+        <li><a href="../user.php"><img src="../img/user.png" height="40px"></a></li>
+
+        <!-- Ikona notifikace s počtem -->
+        <li>
+            <div class="notification-icon" onclick="location.href='notifications.php'">
+                <img src="../img/notification.png" alt="Notifikace" class="bell-icon">
+                <span id="notificationCount" class="notification-count" style="display: none;"></span> <!-- Počet notifikací -->
+            </div>
+        </li>
+    </ul>
+</nav>
+
     </nav>
     <div class="notification-container">
         <h2>Notifikace</h2>
@@ -126,12 +138,13 @@ function get_category_icon($category) {
                         </span>
                     </div>
                     <div class="notification-actions">
-                        <button class="contact-button">📧 Kontakt</button>
-                        <button class="accept-button" onclick="handleNotificationAction(<?php echo $notification['id']; ?>, 'confirm')">✔️ Potvrdit</button>
-                        <button class="cancel-button" onclick="handleNotificationAction(<?php echo $notification['id']; ?>, 'reject')">❌ Zrušit</button>
-                        <!-- Ikona podle kategorie -->
-                        <img src="<?php echo get_category_icon($notification['category']); ?>" alt="Ikona kategorie" class="category-icon">
-                    </div>
+        <button class="contact-button">📧 Kontakt</button>
+        <!-- Tlačítko pro potvrzení -->
+        <button class="accept-button" onclick="handleNotificationAction(<?php echo $notification['id']; ?>, 'confirm')">✔️ Potvrdit</button>
+        <!-- Tlačítko pro odmítnutí -->
+        <button class="cancel-button" onclick="handleNotificationAction(<?php echo $notification['id']; ?>, 'reject')">❌ Zrušit</button>
+        <img src="<?php echo get_category_icon($notification['category']); ?>" alt="Ikona kategorie" class="category-icon">
+    </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -140,7 +153,7 @@ function get_category_icon($category) {
     <div id="successMessage" class="message success" style="display: none;">Úspěšně provedeno.</div>
     <div id="errorMessage" class="message error" style="display: none;">Chyba při zpracování požadavku. Zkuste to prosím znovu.</div>
 
-    <script src="../js/notification.js"></script>
+    <script src="../js/notification-php.js"></script>
     <script src="../js/navbar.js"></script>
 </body>
 </html>
