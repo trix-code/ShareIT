@@ -24,36 +24,29 @@ function loadNotifications() {
             console.error('Chyba při načítání notifikací:', error);
         });
 }
-
-// Funkce pro zpracování akce (Potvrdit, Zrušit)
 function handleNotificationAction(notificationId, action) {
     fetch('php/update_notification_status.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: notificationId, action: action })  // Posíláme ID notifikace a akci
+        body: JSON.stringify({ id: notificationId, action: action }),
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Pokud je akce potvrzena, změníme stav v UI nebo odstraníme notifikaci
-            if (action === 'confirm') {
-                // Aktualizujeme počet notifikací
-                updateNotificationCount();
-                alert('Notifikace byla označena jako přečtená!');
-            } else if (action === 'reject') {
-                alert('Notifikace byla odstraněna.');
-                location.reload();  // Po odstranění stránku znovu načteme
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                alert(data.message);
+                location.reload(); // Refresh the page to reflect changes
+            } else {
+                alert('Chyba: ' + data.error);
             }
-        } else {
-            alert('Chyba: ' + (data.error || 'Neznámá chyba.'));
-        }
-    })
-    .catch(error => {
-        console.error('Chyba při zpracování notifikace:', error);
-    });
+        })
+        .catch((error) => {
+            console.error('Chyba:', error);
+            alert('Nastala chyba při zpracování požadavku.');
+        });
 }
+
 
 
 function sendInterest(subscriptionId, subscriptionName, recipientId) {
