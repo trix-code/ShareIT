@@ -139,7 +139,7 @@ function get_category_icon($category) {
                         <h3><?php echo htmlspecialchars($notification['sender_name']); ?></h3>
                         <p>
                             <?php echo htmlspecialchars($notification['message']); ?>
-                            <?php if (!empty($notification['service_name'])): ?>
+                            <?php if (!empty($notification['service_name']) && !in_array($notification['message'], ['Uživatel přijal vaši žádost o předplatné.', 'Uživatel odmítnul vaši žádost o předplatné.'])): ?>
                                 o sdílené předplatné: 
                                 <strong><?php echo htmlspecialchars($notification['service_name'] . ' – ' . $notification['plan']); ?></strong>
                             <?php endif; ?>
@@ -150,9 +150,7 @@ function get_category_icon($category) {
                     </span>
                 </div>
                 <div class="notification-actions">
-                    <?php if ($notification['message'] === 'Uživatel přijal vaši žádost o předplatné.'): ?>
-                        <button class="info-button" onclick="deleteNotification(<?php echo $notification['id']; ?>)">OK</button>
-                    <?php elseif ($notification['message'] === 'Uživatel odmítnul vaši žádost o předplatné.'): ?>
+                    <?php if ($notification['message'] === 'Uživatel přijal vaši žádost o předplatné.' || $notification['message'] === 'Uživatel odmítnul vaši žádost o předplatné.'): ?>
                         <button class="info-button" onclick="deleteNotification(<?php echo $notification['id']; ?>)">OK</button>
                     <?php else: ?>
                         <button class="contact-button">📧 Kontakt</button>
