@@ -47,6 +47,29 @@ function handleNotificationAction(notificationId, action) {
         });
 }
 
+function acknowledgeNotification(notificationId) {
+    fetch('php/update_notification_status.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: notificationId, action: 'acknowledge' })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Skryj notifikaci z UI
+            const notificationCard = document.querySelector(`.notification-card[data-id="${notificationId}"]`);
+            if (notificationCard) {
+                notificationCard.remove();
+            }
+        } else {
+            console.error('Chyba při zpracování notifikace:', data.error);
+        }
+    })
+    .catch(error => console.error('Chyba při odesílání požadavku:', error));
+}
+
 
 
 function sendInterest(subscriptionId, subscriptionName, recipientId) {
@@ -100,3 +123,34 @@ function updateNotificationCount() {
 
 setInterval(updateNotificationCount, 30000);
 updateNotificationCount();  
+
+function deleteNotification(notificationId) {
+    const data = {
+        id: notificationId,
+        action: 'delete'
+    };
+
+    fetch('php/update_notification_status.php', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            // Hide the notification from the page
+            const notificationElement = document.getElementById('notification-' + notificationId);
+            notificationElement.remove();
+
+            // Show success alert
+            alert('Předplatné bylo úspěšně odstraněno!');
+        } else {
+            alert('Chyba při mazání notifikace.');
+        }
+    })
+    .catch(error => {
+        alert('Chyba při odesílání požadavku.');
+    });
+}
