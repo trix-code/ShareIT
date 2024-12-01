@@ -10,80 +10,106 @@ if (!isset($_SESSION['id'])) {
 
 $userId = $_SESSION['id'];
 
-// Retrieve the notification data from the frontend
+// Získání dat z požadavku
 $data = json_decode(file_get_contents('php://input'), true);
 $notificationId = $data['id'];
-$action = $data['action']; // 'confirm' or 'reject'
+$action = $data['action']; // 'confirm', 'reject', nebo 'delete'
 
+// Funkce pro zasílání odpovědí
+function sendResponse($success, $message) {
+    echo json_encode(['success' => $success, 'message' => $message]);
+    exit();
+}
+
+// Potvrzení žádosti
 if ($action === 'confirm') {
-    // Fetch subscription ID associated with the notification
-    $query = "SELECT subscription_id FROM notifications WHERE id = ? AND user_id = ?";
+    // Získání ID předplatného
+    $query = "SELECT subscription_id, sender_id FROM notifications WHERE id = ? AND user_id = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("ii", $notificationId, $userId);
     $stmt->execute();
-    $stmt->bind_result($subscriptionId);
+    $stmt->bind_result($subscriptionId, $senderId);
     $stmt->fetch();
     $stmt->close();
 
     if (!$subscriptionId) {
-        echo json_encode(['success' => false, 'error' => 'Předplatné nenalezeno.']);
-        exit();
+        sendResponse(false, 'Předplatné nenalezeno.');
     }
 
-    // Deduct one slot from the subscription
-    $updateSubscriptionQuery = "
-        UPDATE subscriptions
-        SET slots_available = GREATEST(slots_available - 1, 0)
-        WHERE id = ? AND slots_available > 0
-    ";
+    // Snížení počtu volných míst o 1
+    $updateSubscriptionQuery = "UPDATE subscriptions SET slots_available = GREATEST(slots_available - 1, 0) WHERE id = ? AND slots_available > 0";
     $stmt = $con->prepare($updateSubscriptionQuery);
     $stmt->bind_param("i", $subscriptionId);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        // Check if slots are now zero and delete the subscription if necessary
-        $checkSlotsQuery = "SELECT slots_available FROM subscriptions WHERE id = ?";
-        $stmt = $con->prepare($checkSlotsQuery);
-        $stmt->bind_param("i", $subscriptionId);
-        $stmt->execute();
-        $stmt->bind_result($slotsAvailable);
-        $stmt->fetch();
-        $stmt->close();
-
-        if ($slotsAvailable === 0) {
-            $deleteSubscriptionQuery = "DELETE FROM subscriptions WHERE id = ?";
-            $stmt = $con->prepare($deleteSubscriptionQuery);
-            $stmt->bind_param("i", $subscriptionId);
-            $stmt->execute();
-            $stmt->close();
-        }
-
-        // Delete the notification
+        // Smazání notifikace po potvrzení
         $deleteNotificationQuery = "DELETE FROM notifications WHERE id = ?";
         $stmt = $con->prepare($deleteNotificationQuery);
         $stmt->bind_param("i", $notificationId);
         $stmt->execute();
         $stmt->close();
 
-        echo json_encode(['success' => true, 'message' => 'Předplatné bylo úspěšně potvrzeno.']);
+        // Odeslání nové notifikace žadateli
+        $message = "Uživatel přijal vaši žádost o předplatné.";
+        $insertNotificationQuery = "INSERT INTO notifications (user_id, sender_id, subscription_id, message) VALUES (?, ?, ?, ?)";
+        $stmt = $con->prepare($insertNotificationQuery);
+        $stmt->bind_param("iiis", $senderId, $userId, $subscriptionId, $message);
+        $stmt->execute();
+        $stmt->close();
+
+        sendResponse(true, 'Předplatné bylo úspěšně potvrzeno.');
     } else {
-        echo json_encode(['success' => false, 'error' => 'Nelze potvrdit. Možná již nejsou žádná dostupná místa.']);
+        sendResponse(false, 'Nelze potvrdit žádost. Možná již nejsou žádná volná místa.');
     }
-} elseif ($action === 'reject') {
-    // Reject the notification (delete it)
+}
+
+// Odmítnutí žádosti
+if ($action === 'reject') {
+    // Získání ID žadatele
+    $query = "SELECT sender_id, subscription_id FROM notifications WHERE id = ? AND user_id = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("ii", $notificationId, $userId);
+    $stmt->execute();
+    $stmt->bind_result($senderId, $subscriptionId);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (!$senderId) {
+        sendResponse(false, 'Žadatel nenalezen.');
+    }
+
+    // Smazání notifikace po odmítnutí
+    $deleteNotificationQuery = "DELETE FROM notifications WHERE id = ?";
+    $stmt = $con->prepare($deleteNotificationQuery);
+    $stmt->bind_param("i", $notificationId);
+    $stmt->execute();
+
+    // Odeslání nové notifikace žadateli
+    $message = "Uživatel odmítnul vaši žádost o předplatné.";
+    $insertNotificationQuery = "INSERT INTO notifications (user_id, sender_id, subscription_id, message) VALUES (?, ?, ?, ?)";
+    $stmt = $con->prepare($insertNotificationQuery);
+    $stmt->bind_param("iiis", $senderId, $userId, $subscriptionId, $message);
+    $stmt->execute();
+    $stmt->close();
+
+    sendResponse(true, 'Žádost byla odmítnuta.');
+}
+
+// Smazání notifikace pomocí tlačítka OK
+if ($action === 'delete') {
     $query = "DELETE FROM notifications WHERE id = ? AND user_id = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("ii", $notificationId, $userId);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo json_encode(['success' => true, 'message' => 'Notifikace byla úspěšně odmítnuta.']);
+        sendResponse(true, 'Notifikace byla úspěšně odstraněna.');
     } else {
-        echo json_encode(['success' => false, 'error' => 'Chyba při odmítnutí notifikace.']);
+        sendResponse(false, 'Chyba při mazání notifikace.');
     }
-    $stmt->close();
-} else {
-    echo json_encode(['success' => false, 'error' => 'Neplatná akce.']);
 }
 
+// Neplatná akce
+sendResponse(false, 'Neplatná akce.');
 ?>
