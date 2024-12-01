@@ -22,7 +22,7 @@ $subscriptionName = $data['subscription_name'];
 
 // Vložení notifikace do databáze
 $query = "INSERT INTO notifications (user_id, sender_id, subscription_id, message) 
-          VALUES ('$recipientId', '$senderId', '$subscriptionId', 'Uživatel $senderId má zájem o předplatné: $subscriptionName')";
+          VALUES ('$recipientId', '$senderId', '$subscriptionId', 'Má zájem')";
 
 if (mysqli_query($con, $query)) {
     echo json_encode(['success' => true]);
