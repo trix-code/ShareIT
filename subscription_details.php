@@ -96,10 +96,10 @@ $subscription = mysqli_fetch_assoc($result);
 <body>
 <nav>
         <div class="logo">
-            <p><a href="home.php"><b>ShareIT</b></a></p>
+        <p><a href="home.php"><b>ShareIT</b><img src="img/logo.png" alt="" height="30px"></a></p>
         </div>
         <ul id="menuList">
-            <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
+        <li><a href="spravce_predplatneho.php">Správce předplatných</a></li>
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
@@ -148,6 +148,8 @@ $subscription = mysqli_fetch_assoc($result);
                 echo '<img src="img/Dropbox.png" alt="Dropbox" class="subscription-img">';
             }elseif ($subscription['service_name'] === 'Microsoft') {
                 echo '<img src="img/Microsoft.png" alt="Microsoft" class="subscription-img">';
+            }elseif ($subscription['service_name'] === 'Chat GPT') {
+                echo '<img src="img/GPT.png" alt="GPT" class="subscription-img">';
             }
             
             
