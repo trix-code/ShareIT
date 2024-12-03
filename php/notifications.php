@@ -90,7 +90,7 @@ function get_category_icon($category) {
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Správce Předplatných</title>
+    <title>Notifikace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
@@ -102,10 +102,10 @@ function get_category_icon($category) {
 <body>
 <nav>
     <div class="logo">
-        <p><a href="../home.php"><b>ShareIT</b></a></p>
+    <p><a href="../home.php"><b>ShareIT</b><img src="../img/logo.png" alt="" height="30px"></a></p>
     </div>
     <ul id="menuList">
-        <li><a href="../spravce_predplatneho.php">Správce Předplatných</a></li>
+        <li><a href="../spravce_predplatneho.php">Správce předplatných</a></li>
         <li><a href="../finance.html">Finance</a></li>
         <li><a href="../contact.php">Kontakt</a></li>
         <li><a href="../user.php"><img src="../img/user.png" height="40px"></a></li>
@@ -124,8 +124,9 @@ function get_category_icon($category) {
 
 <div class="notification-container">
     <h2>Notifikace</h2>
+    <div class="underline"></div>
     <?php if (empty($notifications)): ?>
-        <p>Nemáte žádné notifikace.</p>
+        <b>Nemáte žádné notifikace.</b>
     <?php else: ?>
         <?php foreach ($notifications as $notification): ?>
             <div class="notification-item" id="notification-<?php echo $notification['id']; ?>">
