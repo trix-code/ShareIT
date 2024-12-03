@@ -60,10 +60,10 @@ $result = mysqli_query($conn, "SELECT * FROM spravce_predplatneho WHERE user_id=
     </div>
     <nav>
         <div class="logo">
-            <p><a href="home.php"><b>ShareIT</b></a></p>
+        <p><a href="home.php"><b>ShareIT</b><img src="img/logo.png" alt="" height="30px"></a></p>
         </div>
         <ul id="menuList">
-            <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
+        <li><a href="spravce_predplatneho.php">Správce předplatných</a></li>
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
@@ -83,10 +83,11 @@ $result = mysqli_query($conn, "SELECT * FROM spravce_predplatneho WHERE user_id=
             </div>
     </nav>
 
-    <div class="subscription-container">
     <div id="noSubscriptionsMessage" class="no-subscriptions">
-        <p><b>Tvoje předplatné: <span style="color: red;">Momentálně nemáš vytvořené žádné předplatné!</span></b></p>
+        <p><b style="color: white;">Tvoje předplatné: <span style="color: red;">Momentálně nemáš vytvořené žádné předplatné!</span></b></p>
     </div>
+
+    <div class="subscription-container">
 
     <div id="subscriptionFormContainer" class="subscription-form hidden">
         <h2>Přidat Nové Předplatné:</h2>
@@ -136,28 +137,24 @@ $result = mysqli_query($conn, "SELECT * FROM spravce_predplatneho WHERE user_id=
             <h2><b>Tvoje Předplatné:</b></h2>
         </div>
         <div id="subscriptions">
-            <div class="subscription-card">
-                <h3>Spotify (Hudba)</h3>
-                <p>Cena: 120 Kč</p>
-                <p>Frekvence: měsíčně</p>
-                <p>Další platba: 2024-12-10</p>
-                <button>Upravit</button>
-                <button>Odstranit</button>
-            </div>
-            <div class="subscription-card">
-                <h3>asdad (Sporty)</h3>
-                <p>Cena: 1241 Kč</p>
-                <p>Frekvence: roční</p>
-                <p>Další platba: 2025-10-10</p>
-                <button>Upravit</button>
-                <button>Odstranit</button>
-            </div>
+        <div class="subscription-card">
+            <h4 class="subscription-name">Netflix (Zábava)</h4>
+            <p class="subscription-details">Cena: <span class="price">380 Kč</span></p>
+            <p class="subscription-details">Frekvence: <span class="frequency">Měsíčně</span></p>
+            <p class="subscription-details">Další platba: <span class="next-payment">2024-12-15</span></p>
+            <button onclick="editSubscription(${index})">Upravit</button>
+            <button onclick="deleteSubscription(${sub.id})">Odstranit</button>
+</div>
+
+         
         </div>
     </div>
 
     <!-- Add subscription button -->
     <div class="add-subscription-button" onclick="showSubscriptionForm()">
-        <div class="plus-icon">+</div>
+    <div class="plus-icon">
+                <img src="img/plus.png" alt="" height=100px >
+            </div>
         <p><b>Přidat nové předplatné</b></p>
     </div>
 </div>
