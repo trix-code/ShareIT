@@ -1,7 +1,6 @@
-<?php 
+<?php
 session_start();
-
-include("php/config.php"); 
+include("php/config.php");
 
 if (!isset($_SESSION['valid'])) {
     header("Location: index.php");
@@ -9,11 +8,21 @@ if (!isset($_SESSION['valid'])) {
 
 $conn = mysqli_connect("localhost", "root", "", "login");
 
-// Zkontroluj připojení
 if (!$conn) {
     die("Připojení selhalo: " . mysqli_connect_error());
 }
 
+$checkSlotsQuery = "SELECT id, slots_available FROM subscriptions WHERE slots_available = 0";
+$checkSlotsResult = mysqli_query($conn, $checkSlotsQuery);
+
+while ($row = mysqli_fetch_assoc($checkSlotsResult)) {
+    $subscriptionId = $row['id'];
+    // Odstranění předplatného, pokud má slots_available = 0
+    $deleteSubscriptionQuery = "DELETE FROM subscriptions WHERE id = '$subscriptionId'";
+    mysqli_query($conn, $deleteSubscriptionQuery);
+}
+
+// Formuláře pro přidání a odstranění předplatného
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_subscription'])) {
     $category = $_POST['category'];
     $serviceName = $_POST['serviceName'];
@@ -26,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_subscription'])) {
 
     // Validace negativních čísel
     if ($price < 0 || $availableSpots < 0) {
-        echo "<script>alert('Cena a počet míst nesmí být záporné.');</script>";
+        echo "<script>alert('Cena nebo počet míst nesmí být záporné.');</script>";
     } else {
         $sql = "INSERT INTO subscriptions (user_id, category, service_name, plan, price, slots_available, contact_info, additional_info) 
                 VALUES ('$userId', '$category', '$serviceName', '$plan', '$price', '$availableSpots', '$contactInfo', '$additionalInfo')";
@@ -40,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_subscription'])) {
     }
 }
 
+// Odstranění předplatného
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_subscription'])) {
     $subscriptionId = $_POST['subscription_id'];
     $userId = $_SESSION['id']; 
@@ -61,7 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_subscription'])
 }
 
 $result = mysqli_query($conn, "SELECT * FROM subscriptions");
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -83,10 +95,10 @@ $result = mysqli_query($conn, "SELECT * FROM subscriptions");
 <body>
 <nav>
     <div class="logo">
-        <p><a href="home.php"><b>ShareIT</b></a></p>
+        <p><a href="home.php"><b>ShareIT</b><img src="img/logo.png" alt="" height="30px"></a></p>
     </div>
     <ul id="menuList">
-        <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
+        <li><a href="spravce_predplatneho.php">Správce předplatných</a></li>
         <li><a href="finance.html">Finance</a></li>
         <li><a href="contact.php">Kontakt</a></li>
         <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
@@ -194,9 +206,12 @@ $result = mysqli_query($conn, "SELECT * FROM subscriptions");
         elseif ($row['service_name'] === 'Microsoft 365') {
             echo '<img src="img/Microsoft.png" alt="Microsoft" class="subscription-img">';
         }
+        elseif ($row['service_name'] === 'Chat GPT') {
+            echo '<img src="img/GPT.png" alt="GPT" class="subscription-img">';
+        }
 
-        // Zobrazení názvu služby ve formátu "Spotify - Tarif"
-        echo '<h4 style="font-size: 1.5em;">' . htmlspecialchars($row['service_name']) . ' - ' . htmlspecialchars($row['plan']) . '</h4>';
+        echo '<h4 style="font-size: 1.4em;"><b>' . htmlspecialchars($row['service_name']) . ' - ' . htmlspecialchars($row['plan']) . '</b></h4>';
+        echo '<div class="underline"></div>'; 
         echo '<p><b>Kategorie:</b> ' . htmlspecialchars($row['category']) . '</p>';
         echo '<p><b>Počet míst:</b> ' . htmlspecialchars($row['slots_available']) . '</p>';
         echo '<p><b>Nabízí:</b> @' . htmlspecialchars($row['contact_info']) . '</p>';
@@ -206,7 +221,7 @@ $result = mysqli_query($conn, "SELECT * FROM subscriptions");
         if ($row['user_id'] == $_SESSION['id']) {
             echo '<form method="POST" action="home.php" style="display: inline-block;">';
             echo '<input type="hidden" name="subscription_id" value="' . htmlspecialchars($row['id']) . '">';
-            echo '<button type="submit" name="delete_subscription" class="btn btn-danger">Odstranit</button>';
+            echo '<button type="submit" name="delete_subscription" class="btn-delete">Odstranit</button>';
             echo '</form>';
         }
 
@@ -217,9 +232,10 @@ $result = mysqli_query($conn, "SELECT * FROM subscriptions");
     
     </div>
         <div class="add-subscription-card" onclick="toggleForm()">
-            <div class="plus-icon">+</div>
-                <p><b>Vytvoř si nové předplatné!</b></p>
+            <div class="plus-icon">
+                <img src="img/plus.png" alt="" height=100px >
             </div>
+            <p><b>Přidat nové předplatné</b></p>
         </div>
 
     <script src="js/home.js"></script>
