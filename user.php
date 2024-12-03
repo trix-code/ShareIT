@@ -118,10 +118,10 @@ $subscriptionCount = $subscriptionData['subscription_count'] ?? 0;
     </style>
     <nav>
         <div class="logo">
-            <p><a href="home.php"><b>ShareIT</b></a></p>
+        <p><a href="home.php"><b>ShareIT</b><img src="img/logo.png" alt="" height="30px"></a></p>
         </div>
         <ul id="menuList">
-            <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
+            <li><a href="spravce_predplatneho.php">Správce předplatných</a></li>
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
@@ -214,7 +214,6 @@ $subscriptionCount = $subscriptionData['subscription_count'] ?? 0;
 
   
     <script>   
-        // Zobrazíme vlastní alert na základě GET parametrů
         const urlParams = new URLSearchParams(window.location.search);
         const errorMessage = urlParams.get('error');
         const successMessage = urlParams.get('success');
