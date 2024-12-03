@@ -20,9 +20,18 @@ $recipientId = $data['recipient_id'];
 $subscriptionId = $data['subscription_id'];
 $subscriptionName = $data['subscription_name'];
 
+// Kontrola, zda již existuje podobná notifikace
+$checkQuery = "SELECT * FROM notifications WHERE user_id = '$recipientId' AND sender_id = '$senderId' AND subscription_id = '$subscriptionId'";
+$result = mysqli_query($con, $checkQuery);
+
+if (mysqli_num_rows($result) > 0) {
+    echo json_encode(['success' => false, 'error' => 'Žádost jiý byla odeslána.']);
+    exit();
+}
+
 // Vložení notifikace do databáze
 $query = "INSERT INTO notifications (user_id, sender_id, subscription_id, message) 
-          VALUES ('$recipientId', '$senderId', '$subscriptionId', 'Má zájem')";
+          VALUES ('$recipientId', '$senderId', '$subscriptionId', 'má zájem')";
 
 if (mysqli_query($con, $query)) {
     echo json_encode(['success' => true]);
