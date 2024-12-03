@@ -10,7 +10,8 @@
 
 }
 body {
-    background: #ffffff;
+    
+    background-color: #000A27;
     
 }
 .login-container {
@@ -20,10 +21,11 @@ body {
     min-height: 90vh;
 }
 .login-container h1{
-    margin-top: 60px;
+    margin-top: 10px;
+    color: white;
 }
 .box {
-    background: #fdfdfd;
+    background: #282828;
     display: flex;
     flex-direction: column;
     padding: 25px 25px;
@@ -35,50 +37,84 @@ body {
     width: 450px;
     margin: 0px 10px;
     margin-top: 50px;
+    background-color: #061a51;
 }
 .form-box header {
-    font-size: 25px;
+    font-size: 35px;
     font-weight: 600;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e6e6e6;
     margin-bottom: 10px;
+    color: white;
     margin: auto;
 }
 .form-box form .field {
+    margin-top: 10px;
     display: flex;
     margin-bottom: 10px;
     flex-direction: column;
+    color: white;
+    font-size: 20px;
 }
 .form-box form .input input {
     height: 40px;
     width: 100%;
-    font-size: 16px;
+    font-size: 20px;
     padding: 0 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     outline: none;
+    background-color: #efefef;
+    color: #031546;
+    font-style: bold;
 }
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.toggle-password img {
+    width: 100%;
+    height: auto;
+}
+
 
 .btn {
     display: inline-block;
-    width: 120px; /* Nastavíme pevnou šířku */
+    width: 100%; 
     padding: 10px;
-    margin: 5px;
-    font-size: 0.9em;
+    margin-top: 30px;
+    font-size: 1.2em;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     transition: background-color 0.3s;
     border: none;
+    color: white;
+    background-color: #030e2b;
 }
 
 .btn-info {
-    background-color: #00A9DE;
+    background-color: #020e33;
     color: #fff;
+    text-decoration: none;
 }
 
 .btn-info:hover {
-    background-color: #008bb2;
+    background-color: #040d25;
 }
 
 .btn-danger {
@@ -117,6 +153,7 @@ body {
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
+    color: white;
 }
 
 /********* Home *****************/
@@ -129,16 +166,17 @@ nav {
     background: #f8f8f8;
     position: relative;
     height: 70px;
+    background-color: #071945;
 }
 
 .logo {
-    color: #000000;
+    color: #ffff;
     font-size: 30px;
     text-decoration: none;
 }
 
 .logo a {
-    color: black;
+    color: white;
     font-size: 40px;
     text-decoration: none;
 }
@@ -148,6 +186,7 @@ nav ul {
     gap: 30px;
     align-items: center;
     font-size: 23px;
+    color: #ffff;
 }
 
 nav li a:hover {
@@ -164,7 +203,10 @@ nav  li {
 
 nav ul li a {
     text-decoration: none;
-    color: #000000;
+    color: #ffff;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
 }
 
 /* Hamburger menu */
@@ -244,7 +286,7 @@ nav ul li a {
     max-width: 400px;
     margin: auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #031546;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -254,14 +296,37 @@ nav ul li a {
 .notification-container {
     width: 800px;
     margin: auto;
-    background-color: rgb(247, 247, 247);
+    background-color: #031546;
     margin-top: 30px;
     border-radius: 30px;
 }
 
+
 .notification-container h2{
     font-size: 5vw;
     text-align: center;
+    color: white;
+}
+
+.notification-container h3{
+    font-size: 30px;
+    font-style: bold;
+}
+
+.notification-container b{
+    display: flex;
+    margin-top: 25px;
+    justify-content: center;
+    color: rgb(206, 44, 44);
+    font-size: 1.3vw;
+    padding-bottom: 30px;
+}
+
+.info-button{
+    background-color: #080d3f; 
+    color: white;
+    width: 120px;
+    margin-left: 30px;
 }
 
 .notification-item {
@@ -272,21 +337,21 @@ nav ul li a {
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
+    color: white;
     margin-bottom: 15px;
-    background-color: #fff;
+    background-color: #051e63;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Hlavička notifikace */
 .notification-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 25px;
+    color: white;
 }
 
-/* Profilová fotka */
 .notification-header img {
     width: 100px;
     height: 100px;
@@ -295,7 +360,7 @@ nav ul li a {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Informace o uživateli */
+
 .notification-details {
     flex-grow: 1;
     margin-left: 15px;
@@ -311,18 +376,9 @@ nav ul li a {
 
 .notification-time {
     font-size: 0.9em;
-    color: #888;
-    text-align: right;
-    white-space: nowrap; 
-    margin: 0; /
-}
-
-
-/* Čas notifikace */
-.notification-time {
-    font-size: 0.9em;
-    color: #888;
+    color: #fff;
     align-self: flex-start;
+    white-space: nowrap; 
     width: 10%;
 }
 
@@ -344,7 +400,7 @@ nav ul li a {
     border-radius: 20px;
 }
 
-/* Přidání odsazení pro obrázek */
+
 .notification-actions img {
     height: 20px;
     margin-left: auto; 
@@ -353,7 +409,7 @@ nav ul li a {
 
 /* Styl tlačítka "Potvrdit" */
 .notification-actions .accept-button {
-    background-color: #1fa507; /* Zelená */
+    background-color: #1fa507; 
     color: white;
 }
 
@@ -363,7 +419,7 @@ nav ul li a {
 
 /* Styl tlačítka "Odmítnout" */
 .notification-actions .cancel-button {
-    background-color: #8c090b; /* Červená */
+    background-color: #8c090b; 
     color: white;
 }   
 
@@ -371,9 +427,8 @@ nav ul li a {
     background-color: #5e0305;
 }
 
-/* Tlačítko Kontakt - upraveno pro konzistentní vzhled */
 .notification-actions .contact-button {
-    background-color: #0b1678; /* Modrá */
+    background-color: #080d3f; 
     color: white;
    
 }
@@ -383,22 +438,20 @@ nav ul li a {
 }
 
 
-/* Skrytí notifikační zprávy */
 .notification-message {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Posune zprávu do středu */
+    transform: translate(-50%, -50%);
     background-color: #f8f8f8;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Na vrchu všech ostatních prvků */
+    z-index: 1000;
     text-align: center;
 }
 
-/* Styl pro tlačítko OK */
 .notification-message button {
     background-color: #4CAF50;
     color: white;
@@ -481,6 +534,7 @@ b {
 }
 a {
     color: #00A9DE;
+    text-decoration: none;
 }
 .bg img {
     z-index: -999;
@@ -518,20 +572,22 @@ a {
     background-color: transparent;
 }
 
-/* Karta předplatného */
+
 .subscription-card {
-    background: #ffffff;
-    border: 1px solid #ddd;
+    background-color: #061a51;
+    border: 1px solid #000A27;
     padding: 20px;
+    color: white;
     border-radius: 10px;
-    margin: 10px 0; /* Vertikální mezera */
+    margin: 10px 0; 
     text-align: center;
-    width: calc(33.33% - 20px); /* Šířka s odsazením */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px); /
+
 }
+
 .subscription-card-detail{
-    background: #ffffff;
-    border: 1px solid #ddd;
+    background-color: #051542;
+    border: 1px solid #000A27;
     padding: 20px;
     border-radius: 10px;
     margin: 10px 0; /* Vertikální mezera */
@@ -539,15 +595,16 @@ a {
     width: 400px; /* Šířka s odsazením */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: auto;
+    color: white;
 }
 
 .subscription-card-detail img{
     width: 250px;
 }
 
-.subscription-card h4 {
-    font-size: 1.2em;
-    font-weight: bold;
+.subscription-card-detail h4 {
+    font-size: 2.3em;
+    font-weight: 800;
     margin-bottom: 10px;
 }
 
@@ -557,7 +614,7 @@ a {
 }
 
 .subscription-card button {
-    background-color: #00A9DE;
+    background-color: #091489;
     color: #fff;
     border: none;
     padding: 8px 15px;
@@ -565,6 +622,8 @@ a {
     cursor: pointer;
     margin: 5px;
     font-size: 0.9em;
+    margin-top: 20px;
+    width: 200px;
     transition: background-color 0.3s;
 }
 
@@ -647,26 +706,34 @@ textarea {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    background-color: #031546;
     padding: 40px;
     margin: 20px;
     cursor: pointer;
     font-size: 20px;
-    color: #007bff;
     text-align: center;
-    border: 1px solid #ddd;
 }
 
 .add-subscription-card p {
-    color: black;
+    color: white;
 }
 
-.plus-icon {
-    font-size: 4em;
+.plus-icon{
+    font-size: 1em;
     color: #00A9DE;
+    margin-top: 0px;
 }
 
 .add-subscription-card:hover .plus-icon {
     color: #008bb2;
+}
+
+.underline {
+    width: 100px;
+    height: 3px;
+    background-color: #007bff;
+    margin: 10px auto;
+    border-radius: 2px;
 }
 
 
@@ -683,9 +750,9 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f0f0f0;
-    min-width: 96%; /* Zarovnání na šířku předplatných */
-    color: black;
+    background: #000A27;background: rgb(3,14,113);
+    background: linear-gradient(90deg, rgba(3,14,113,1) 0%, rgba(2,23,75,1) 100%);min-width: 96%; /* Zarovnání na šířku předplatných */
+    color: white;
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -695,14 +762,15 @@ textarea {
 }
 
 .dropdown-button:hover {
-    background-color: #c0bebe;
+    background: #02144a;
 }
 
 .dropdown-menu {
     display: none;
     position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
+    background: #000A27;
+    color: white;
+    border: 1px solid #032075;
     border-radius: 5px;
     width: 100%;
     margin: 0;
@@ -714,12 +782,12 @@ textarea {
 .dropdown-menu li {
     padding: 10px;
     cursor: pointer;
-    color: black;
+    color: white;
     text-align: center;
 }
 
 .dropdown-menu li:hover {
-    background-color: #f2f2f2;
+    background: #011244;
 }
 
 .custom-dropdown.open .dropdown-menu {
@@ -746,56 +814,71 @@ textarea {
 
 /* Main Container */
 .subscription-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
+
+}
+
+.no-subscriptions p{
+    display: flex;
+    justify-content: center;
+    margin-top:230px;
+    font-size: 2.3em;
 }
 
 /* Subscription List */
 .subscription-list-spravce {
-    background: #f9f9f9;
+    background: #03093c;
     padding: 20px;
+    width: 100%;
     border-radius: 10px;
+    margin: auto;
+    margin-top: 50px;
 }
 
 .subscriptions-text h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 1.8em; /* Increased font size for the header */
-    color: #333;
+    font-size: 1.8em; 
+    color: #ffff;
+    font-style: bold;
 }
 
-/* Subscriptions Grid */
+
 .subscription-list-spravce #subscriptions {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Space between cards */
-    justify-content: center; /* Center align cards */
+    gap: 20px; 
+    justify-content: center; 
 }
 
 /* Subscription Card */
 .subscription-list-spravce .subscription-card {
-    background: #ffffff;
-    border: 1px solid #ddd;
+    background: #02062B;
     padding: 15px;
     border-radius: 10px;
-    width: 250px; /* Adjusted width for a rectangular layout */
+    width: 300px; 
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.subscription-list-spravce .subscription-card h3 {
-    font-size: 1.3em; /* Larger font size for titles */
+.subscription-list-spravce p{
+    font-size: 1.2em; 
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.subscription-list-spravce .subscription-card p {
-    margin: 5px 0;
-    font-size: 1em; /* Adjusted text size */
+.subscription-card h3{
+    font-size: 200px;
 }
 
-/* Buttons inside Subscription Card */
+.subscription-card p {
+    margin: 5px 0;
+    font-size: 1em;
+    font-style: none; 
+}
+
 .subscription-list-spravce .subscription-card button {
     background-color: #00A9DE;
     color: #fff;
@@ -804,7 +887,7 @@ textarea {
     border-radius: 5px;
     cursor: pointer;
     margin: 5px;
-    font-size: 1em; /* Increased font size for better visibility */
+    font-size: 1em; 
     transition: background-color 0.3s;
 }
 
@@ -814,8 +897,8 @@ textarea {
 
 /* Add Subscription Button */
 .add-subscription-button {
-    background: #f3f2f2;
-    border: 1px solid #ddd;
+    background: #03093c;
+    color: white;
     padding: 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -836,7 +919,7 @@ textarea {
 .add-subscription-button p {
     margin-top: 10px;
     font-size: 1em;
-    color: black;
+    color: white;
 }
 
 .plus-icon {
@@ -854,42 +937,10 @@ textarea {
     display: none;
     padding: 20px;
     margin: 20px auto;
-    background: #ffffff;
+    background: transparent;
     border-radius: 10px;
     width: 100%;
     
-}
-
-.subscription-form {
-    width: 100%;
-}
-
-.subscription-form h2 {
-    font-size: 26px;
-    color: #333333;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.subscription-form .field {
-    margin-bottom: 15px;
-}
-
-.subscription-form .field label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-.subscription-form .field input, 
-.subscription-form .field select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
 }
 
 /* Responsiveness */
@@ -919,7 +970,7 @@ textarea {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 1);
+    background: #02062B;
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -948,46 +999,47 @@ textarea {
 
 
 .subscription-form {
-    background: #f3f3f3;
+    background-color: #030940;
+    width: 60%;
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    width: 50%;
-    max-width: 500px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 .subscription-form h2 {
     font-size: 3em;
     margin-bottom: 15px;
-    color: #333;
+    color: #ffff;
     font-family: "Jura", sans-serif;
     font-optical-sizing: auto;
     font-weight: 200;
     font-style: normal;
 }
+.form-group{
+    color: white;
+}
 .subscription-form .field {
     margin-bottom: 30px;
     text-align: left;
+    color: white;
 }
 .subscription-form .field input,
 .subscription-form .field select {
-    width: calc(100% - 10px);
+    width: calc(100%);
     padding: 10px;
     font-size: 1.3em;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #fff;
     margin-top: 5px;
     outline: none;
 }
 .subscription-form .field input:focus,
 .subscription-form .field select:focus {
-    border-color: #00A9DE;
+    background-color: #ffff;
+    color: black;
 }
 .subscription-form .field label {
     font-size: 0.9em;
-    color: #666;
+    color: white;
     display: block;
 }
 .subscription-form .btn {
@@ -1011,12 +1063,7 @@ textarea {
 .subscription-form .btn:hover {
     background-color: #008bb2;
 }
-.no-subscriptions p{
-    display: flex;
-    justify-content: center;
-    margin-top:230px;
-    font-size: 2.3em;
-}
+
 
 
 /********* USER *****************/
@@ -1024,16 +1071,17 @@ textarea {
 .user-settings-container {
     width: 60%;
     margin: 0 auto;
-    background-color: #f2f2f2;
+    background-color: #040a47;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .settings-flex {
     width: 80%;
     margin: auto;
+    margin-top: 10px;
 }
 
 
@@ -1048,7 +1096,7 @@ textarea {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: #f9f9f9;
+    background-color: #eaeaea;
     padding: 10px; /* Zmenšený padding */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1065,8 +1113,8 @@ textarea {
 
 
 .change-profile-pic {
-    color: #007bff;
-    font-size: 18px; /* Menší text */
+    color: #154fc3;
+    font-size: 18px; 
     text-decoration: underline;
     cursor: pointer;
     margin-bottom: 10px;
@@ -1085,7 +1133,7 @@ textarea {
 
 .upload-button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #021138;
     color: white;
     border: none;
     border-radius: 5px;
@@ -1096,12 +1144,12 @@ textarea {
 }
 
 .upload-button:hover {
-    background-color: #0056b3;
+    background-color: #072266;
 }
 
 .upload-button:active {
     background-color: #003f8a;
-    transform: scale(0.95); /* Animace při kliknutí */
+    transform: scale(0.95); 
 }
 
 
@@ -1109,14 +1157,14 @@ textarea {
 .info-box {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertikální zarovnání obsahu */
-    align-items: flex-start; /* Text zarovnán vlevo */
+    justify-content: center; 
+    align-items: flex-start; 
     padding: 20px;
-    background-color: #fff;
+    background-color: #eaeaea;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Šířka, která zabere zbytek prostoru */
-    min-height: 150px; /* Zajištění stejné výšky s profile-box */
+    width: 100%; 
+    min-height: 150px; 
     text-align: left;
 }
 
@@ -1143,6 +1191,7 @@ textarea {
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .detail-row {
@@ -1177,15 +1226,15 @@ textarea {
     text-align: left;
     font-weight: bold;
 }
-/* Styl tlačítka Upravit */
+
 .edit-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    width: 100%;
+    width: 130px;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #021138;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -1195,7 +1244,7 @@ textarea {
 }
 
 .edit-btn:hover {
-    background-color: #0056b3;
+    background-color: #051e5c;
 }
 
 
@@ -1209,7 +1258,7 @@ textarea {
 .action-buttons {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 83%;
     margin: auto;
 }
 
@@ -1218,28 +1267,31 @@ textarea {
     flex: 1;
     margin: 10px;
     padding: 10px;
+    text-align: center;
     border: none;
     border-radius: 5px;
-    font-size: 1em;
     cursor: pointer;
 }
 
 .logout-btn {
-    background-color: #007bff;
+    background-color: #1C658F;
     color: #fff;
+    width: 100%;
 }
 
 .delete-account-btn {
-    background-color: #e74c3c;
+    background-color: #8F1C1E;
     color: #fff;
 }
 
 .logout-btn:hover {
-    background-color: #0056b3;
+    background-color: #257fb3;
+    transition: 0.3s;
 }
 
 .delete-account-btn:hover {
-    background-color: #c0392b;
+    background-color: #be282b;
+    transition: 0.3s;
 }
 
 
@@ -1341,18 +1393,18 @@ textarea {
 .contact-container {
     width: 50%;
     max-width: 500px;
-    background-color: #e9e9e9;
+    background-color: #061a51;
     padding: 30px;
     border-radius: 15px;
     text-align: center;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 50px;
 }
 
 .contact-container h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: black;
+    color: white;
     font-family: "Jura", sans-serif;
     font-optical-sizing: auto;
     font-weight: 200;
@@ -1384,7 +1436,7 @@ textarea {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: black;
+    color: white;
     text-align: left; 
     padding-left: 5px;
 }
@@ -1414,7 +1466,7 @@ textarea {
     padding: 15px 30px;
     font-size: 1.2em;
     color: #fff;
-    background-color: #062c53;
+    background-color: #041b32;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -1424,7 +1476,7 @@ textarea {
 }
 
 .contact-btn:hover {
-    background-color: #0b335f;
+    background-color: #03203f;
 }
 
 
