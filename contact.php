@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($email !== $userEmail) {
         $errorMessage = "Email musí odpovídat vašemu účtu.";
     } else {
-        // Bezpečné vložení dat
+
         $sql = "INSERT INTO contact_form (first_name, last_name, email, topic, message) 
                 VALUES (?, ?, ?, ?, ?)";
         $stmt = $con->prepare($sql);
@@ -62,15 +62,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Kontakt</title>
 </head>
 <body>
-    <nav>
+<nav>
         <div class="logo">
-            <p><a href="home.php"><b>ShareIT</b></a></p>
+        <p><a href="home.php"><b>ShareIT</b><img src="img/logo.png" alt="" height="30px"></a></p>
         </div>
         <ul id="menuList">
-            <li><a href="spravce_predplatneho.php">Správce Předplatných</a></li>
+            <li><a href="spravce_predplatneho.php">Správce předplatných</a></li>
             <li><a href="finance.html">Finance</a></li>
             <li><a href="contact.php">Kontakt</a></li>
             <li><a href="user.php"><img src="img/user.png" height="40px"></a></li>
+
+            <li>
+                <div class="notification-icon" onclick="location.href='php/notifications.php'">
+                    <img src="img/notification.png" alt="Notifikace" class="bell-icon">
+                    <span id="notificationCount" class="notification-count hidden">0</span>
+                </div>
+            </li>
+
         </ul>
             <div class="menu-icon" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -119,6 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <script src="js/navbar.js"></script>
-
+    <script src="js/notification-all.js"></script>
 </body>
 </html>
