@@ -76,20 +76,20 @@ function sendInterest(subscriptionId, subscriptionName, recipientId) {
     fetch('php/add_notification.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             subscription_id: subscriptionId,
             subscription_name: subscriptionName,
-            recipient_id: recipientId
-        })
+            recipient_id: recipientId,
+        }),
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert("Vaše žádost byla odeslána!");
         } else {
-            alert("Chyba při odesílání žádosti: " + (data.error || 'Neznámá chyba.'));
+            alert("Chyba: " + (data.error || 'Neznámá chyba.'));
         }
     })
     .catch(err => {
