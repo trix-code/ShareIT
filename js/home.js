@@ -16,7 +16,6 @@ function toggleForm() {
         subscriptionList.style.display = 'none';
         hideCategoryFilter();
     }
-    
 }
 
 function hideCategoryFilter() {
@@ -30,7 +29,6 @@ function hideCategoryFilter() {
     }
 }
 
-
 function showCategoryFilter() {
     const categoryFilterContainer = document.getElementById("categoryFilterContainer");
     const dropdownButton = document.querySelector('.dropdown-button'); // Zobrazí dropdown
@@ -42,7 +40,7 @@ const serviceOptions = {
     "Hudba": ["Spotify", "Apple Music"],
     "Filmy": ["Netflix", "HBO Max", "Voyo", "Apple TV", "Disney", "Amazon Prime Video"],
     "Hry": ["Xbox"],
-    "Ostatní": ["Youtube", "Dropbox", "Microsoft 365"],
+    "Ostatní": ["Youtube", "Dropbox", "Microsoft 365", "Chat GPT"],
 };
 
 const planOptions = {
@@ -58,6 +56,7 @@ const planOptions = {
     "Youtube": { "Family": 269 },
     "Dropbox": { "Family": 459 },
     "Microsoft 365": { "Family": 269 },
+    "Chat GPT": { "Premium": 499 },
 };
 
 const maxSpots = {
@@ -73,6 +72,7 @@ const maxSpots = {
     "Youtube": { "Family": 5 },
     "Dropbox": { "Family": 5 },
     "Microsoft 365": { "Family": 5 },
+    "Chat GPT": { "Premium": 25 },
 };
 
 function updateServiceOptions() {
@@ -121,13 +121,15 @@ function updateAvailableSpots() {
     availableSpotsInput.placeholder = `Maximálně ${maxAvailableSpots} volná místa`;
 }
 
-document.getElementById("price").addEventListener("input", function () {
-    if (this.value < 0) {
-        this.value = 0;
+// Přidání validace, aby hodnota nemohla být ≤ 0
+document.getElementById("availableSpots").addEventListener("input", function () {
+    if (this.value <= 0) {
+        this.value = ""; // Resetuje hodnotu
+        alert("Volná místa musí být alespoň 1.");
     }
 });
 
-document.getElementById("availableSpots").addEventListener("input", function () {
+document.getElementById("price").addEventListener("input", function () {
     if (this.value < 0) {
         this.value = 0;
     }
@@ -177,5 +179,3 @@ function toggleDetails(button) {
 }
 
 updateServiceOptions();
-
-
