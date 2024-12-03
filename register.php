@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="login-container">
         <h1>Welcome in <br><b>ShareIT</b></h1>
         <div class="box form-box">
 
@@ -82,7 +82,8 @@
          } else {
         ?>
 
-            <header>Lets create a Account!</header>
+            <header>Create an account!</header>
+            <div class="underline"></div>
             <form action="register.php" method="post" id="registrationForm">
                 <div class="field input">
                     <label for="username">Username</label>
