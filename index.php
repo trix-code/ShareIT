@@ -14,9 +14,7 @@
     <title>Login</title>
 </head>
 <body>
-
-
-    <div class="container">
+    <div class="login-container">
         <div class="text-box">
             <h1>Welcome in <br><b>ShareIT</b></h1>
         </div>
@@ -52,17 +50,20 @@
               } else {
             ?>
             <header>Welcome Back!</header>
+            <div class="underline"></div>
             <form action="" method="post">
                 <div class="field input">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" autocomplete="off" required>
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" id="email" autocomplete="off" required placeholder="example@gmail.com">
                 </div>
 
-                <div class="field input">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" autocomplete="off" required>
+                <div class="field input password-wrapper">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" autocomplete="off" required placeholder="password">
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <img src="img/password-eye.png" alt="Show Password" id="toggleIcon">
+                    </span>
                 </div>
-
 
                 <div class="field">
                     <input type="submit" class="btn" name="submit" value="Login">
@@ -74,5 +75,8 @@
         </div>
         <?php } ?>
     </div>
+
+    <script src="js/password.js"></script>
+
 </body>
 </html>
