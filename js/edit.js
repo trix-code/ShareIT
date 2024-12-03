@@ -10,6 +10,16 @@ updateForm.addEventListener('submit', (e) => {
     const newValue = formData.get('newValue');
     const currentPassword = formData.get('currentPassword') || '';
 
+    if (type === 'age') {
+        const age = parseInt(newValue, 10);
+        if (isNaN(age) || age < 0 || age > 100) {
+            errorMessage.textContent = 'Věk musí být mezi 0 a 100.';
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+            return;
+        }
+    }
+
     fetch('php/update_user.php', {
         method: 'POST',
         body: new URLSearchParams(formData)
