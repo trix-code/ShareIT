@@ -11,6 +11,9 @@ function showSubscriptionForm() {
     subscriptionFormContainer.classList.remove('hidden'); 
     noSubscriptionsMessage.classList.add('hidden'); 
     subscriptionsContainer.classList.add('hidden');
+
+    // Skryje tlačítko pro přidání
+    document.querySelector('.add-subscription-button').classList.add('hidden');
 }
 
 function hideSubscriptionForm() {
@@ -20,24 +23,10 @@ function hideSubscriptionForm() {
     } else {
         subscriptionsContainer.classList.remove('hidden'); 
     }
+
+    // Zobrazí tlačítko pro přidání
+    document.querySelector('.add-subscription-button').classList.remove('hidden');
 }
-
-// Přidání validace pro datum platby
-nextPaymentInput.addEventListener('change', function () {
-    const selectedDate = new Date(this.value);
-    const today = new Date();
-    const maxYear = 2026;
-
-    // Pokud je rok větší než 2026, nastaví se maximální povolené datum
-    if (selectedDate.getFullYear() > maxYear) {
-        this.value = `${maxYear}-12-31`; // Nastaví poslední den roku 2026
-    }
-
-    // Pokud je datum v minulosti, resetuje hodnotu
-    if (selectedDate < today) {
-        this.value = ''; // Vymaže neplatné datum
-    }
-});
 
 // Ošetření odesílání formuláře pro přidání nebo úpravu předplatného
 subscriptionForm.addEventListener('submit', (e) => {
@@ -49,6 +38,21 @@ subscriptionForm.addEventListener('submit', (e) => {
     const nextPayment = document.getElementById('nextPayment').value;
     const category = document.getElementById('category').value;
     const editingIndex = subscriptionForm.dataset.editingIndex;
+
+    // Validace datumu při odeslání
+    const selectedDate = new Date(nextPayment);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Nastaví dnešní datum na půlnoc
+
+    if (selectedDate < today || isNaN(selectedDate)) {
+        alert("Neplatné datum. Zadejte aktuální nebo pozdější datum.");
+        return;
+    }
+
+    if (selectedDate.getFullYear() > 2025) {
+        alert("Neplatné datum. Datum nesmí být pozdější než rok 2025.");
+        return;
+    }
 
     const data = {
         name,
@@ -172,25 +176,3 @@ function editSubscription(index) {
 
 // Načtení předplatného při načtení stránky
 loadSubscriptions();
-
-
-function showSubscriptionForm() {
-    subscriptionFormContainer.classList.remove('hidden'); 
-    noSubscriptionsMessage.classList.add('hidden'); 
-    subscriptionsContainer.classList.add('hidden');
-
-    // Skryje tlačítko pro přidání
-    document.querySelector('.add-subscription-button').classList.add('hidden');
-}
-
-function hideSubscriptionForm() {
-    subscriptionFormContainer.classList.add('hidden'); 
-    if (subscriptions.length === 0) {
-        noSubscriptionsMessage.classList.remove('hidden'); 
-    } else {
-        subscriptionsContainer.classList.remove('hidden'); 
-    }
-
-    // Zobrazí tlačítko pro přidání
-    document.querySelector('.add-subscription-button').classList.remove('hidden');
-}
