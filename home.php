@@ -127,7 +127,7 @@ $result = mysqli_query($conn, "SELECT * FROM subscriptions");
         <!-- Formulář pro přidání nového předplatného -->
         <div class="subscription-form-container" id="subscriptionForm">
             <form method="POST" action="home.php" class="subscription-form">
-                <h2>Přidat Nové Předplatné:</h2>
+                <h2>Přidat nové předplatné:</h2>
                 <div class="form-group">
                     <label for="category">Kategorie:</label>
                     <select id="category" name="category" required onchange="updateServiceOptions()">
