@@ -165,6 +165,7 @@ h1 {
     transition: transform 0.3s ease;
 }
 
+
 .info-card:hover {
     transform: translateY(-10px);
 }
@@ -184,7 +185,7 @@ h1 {
 }
 
 .info-card p {
-    font-size: 1em;
+    font-size: 1.1em;
     line-height: 1.6;
 }
 
