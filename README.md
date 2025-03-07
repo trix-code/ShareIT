@@ -5,15 +5,12 @@ ShareIT is an innovative application for sharing subscriptions, such as Spotify,
 ## ✨ Features
 - ✅ **Subscription Sharing** – Easy connection between users who want to share their accounts
 - ✅ **Group Management** – Ability to create and manage groups for shared subscriptions
-- ✅ **Secure Payments** – Integration of payment methods for fair cost distribution
 - ✅ **Notifications** – Alerts for upcoming payments and changes in groups
 
 ## 🛠️ Technologies Used
 - 🔹 **Frontend:** HTML, CSS, JavaScript
 - 🔹 **Backend:** PHP (running on XAMPP)
 - 🔹 **Database:** MySQL
-- 🔹 **Authentication:** JWT (JSON Web Token)
-- 🔹 **Payment Gateway:** Stripe API
 
 ## 🚀 How to Run the Project (XAMPP)
 1. Download and install XAMPP
