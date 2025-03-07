@@ -1,37 +1,34 @@
 # ShareIT 🎭
 
-ShareIT je inovativní aplikace pro sdílení předplatných, jako jsou Spotify, Netflix, Disney+ a další, mezi uživateli. Cílem aplikace je pomoci lidem efektivně rozdělit náklady na předplatné a usnadnit jejich správu.
+ShareIT is an innovative application for sharing subscriptions, such as Spotify, Netflix, Disney+, and more, among users. The goal of the app is to help people effectively split subscription costs and simplify their management.
 
-## ✨ Funkce
-- ✅ **Sdílení předplatných** – Snadné propojení uživatelů, kteří chtějí sdílet své účty
-- ✅ **Správa skupin** – Možnost vytvářet a spravovat skupiny pro společné předplatné
-- ✅ **Bezpečné platby** – Integrace platebních metod pro spravedlivé rozdělení nákladů
-- ✅ **Notifikace** – Upozornění na blížící se platby a změny ve skupinách
+## ✨ Features
+- ✅ **Subscription Sharing** – Easy connection between users who want to share their accounts
+- ✅ **Group Management** – Ability to create and manage groups for shared subscriptions
+- ✅ **Secure Payments** – Integration of payment methods for fair cost distribution
+- ✅ **Notifications** – Alerts for upcoming payments and changes in groups
 
-## 🛠️ Použité technologie
+## 🛠️ Technologies Used
 - 🔹 **Frontend:** HTML, CSS, JavaScript
-- 🔹 **Backend:** PHP (běží na XAMPP)
-- 🔹 **Databáze:** MySQL
-- 🔹 **Autentizace:** JWT (JSON Web Token)
-- 🔹 **Platební brána:** Stripe API
+- 🔹 **Backend:** PHP (running on XAMPP)
+- 🔹 **Database:** MySQL
+- 🔹 **Authentication:** JWT (JSON Web Token)
+- 🔹 **Payment Gateway:** Stripe API
 
-## 🚀 Jak spustit projekt (XAMPP)
-1. Stáhněte a nainstalujte XAMPP
-2. Naklonujte tento repozitář do složky `htdocs`:
+## 🚀 How to Run the Project (XAMPP)
+1. Download and install XAMPP
+2. Clone this repository into the `htdocs` folder:
     ```bash
     git clone https://github.com/trix-code/ShareIT.git
     ```
-3. Spusťte Apache a MySQL v XAMPP Control Panel
-4. Vytvořte databázi v phpMyAdmin a importujte soubor `database.sql`
-5. Upravte konfiguraci připojení k databázi v souboru `config.php`
-6. Otevřete aplikaci v prohlížeči:
+3. Start Apache and MySQL in the XAMPP Control Panel
+4. Create a database in phpMyAdmin and import the `database.sql` file
+5. Edit the database connection configuration in the `config.php` file
+6. Open the app in your browser:
     ```arduino
     http://localhost/ShareIT
     ```
 
-## 📸 Ukázky aplikace
-(Zde můžeš přidat screenshoty nebo GIFy z aplikace pro lepší vizuální prezentaci)
-
-## 📬 Kontakt
-- 📧 **Email:** tvůj-email@example.com
+## 📬 Contact
+- 📧 **Email:** tomaskotik08@gmail.com
 - 🌐 **GitHub:** [github.com/trix-code](https://github.com/trix-code)
